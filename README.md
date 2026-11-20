@@ -18,7 +18,7 @@ agent 调用 `plugin_manager` 需要 danger-full-access；相对本地路径会�
 ```
 plugin_manager {
   action: "install_bundle",
-  target: "github:ZJ929-max/dsh-plugins#f843a511f7e13789297bd3301eae85e9090e2e3a"
+  target: "github:ZJ929-max/dsh-plugins#<40 位 commit>"
 }
 ```
 
