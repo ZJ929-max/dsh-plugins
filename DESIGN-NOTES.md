@@ -164,6 +164,15 @@ target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-d
 5. **发布前清理**：agent-bus 的 `private: true`；元包 `index.json` 的 `publishTimestamp` 是否改用实际的发布时间（当前用的是对应 commit 的时间）。
 6. **图标**：如需要 Discover 图标，给每个插件加托管 SVG/PNG 并填 `icon`；不阻塞功能。
 
+## 8.5 E2E 实测（2026-11-20 15:55，一次性 profile）
+
+- 建 profile：`dsh --profile packtest --from-default-profile web --dump-config`（不启动 GUI）
+- 元包安装：profile 依赖 `dsh-plugins@github:ZJ929-max/dsh-plugins#f0fb3af`，且 `pnpm-workspace.yaml` 需加 `blockExoticSubdeps: false`
+- 结果：`install exit=0`；node_modules = dsh-plugins + dsh-tool-fold + dsh-bili-peek + dsh-view-image + dsh-agent-bus
+- `dsh --profile packtest --dump-config` 出现四条：`tool-fold / dsh-tool-fold`、`bili-peek / dsh-bili-peek`、`view-image / dsh-view-image`、`agent-bus / dsh-agent-bus`
+- 对照：另建 packtest2 单装 `dsh-tool-fold`，默认 pnpm 配置直接 exit=0，dump 出现 `tool-fold`
+- 结论：索引单装可用；元包一键装可用，但需要那一行 pnpm 配置（或 `--config.blockExoticSubdeps=false`）。去掉前置的根办法是插件发 npm。
+
 ## 9. 验收清单（交给 lead）
 
 - [x] `plugin-pack/` 下文件齐全：package.json、patches/*.yml、index.json、README、LICENSE、AI-DISCLOSURE、DESIGN-NOTES、.gitignore、CI、scripts。

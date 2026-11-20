@@ -35,6 +35,8 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 元包的 `dependencies` 会把四个插件装进 profile 的 node_modules；真正让它们挂载的是 `patches/*.yml` 里的 insert 行。依赖本身不是独立的 bundle 层。
 
+> **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
+
 装完应出现四个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox`。
 
 ## 互斥规则（必读）
