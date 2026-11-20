@@ -30,8 +30,8 @@
     }
   },
   "dependencies": {
-    "dsh-tool-fold": "github:ZJ929-max/dsh-tool-fold#ef387ce0da5b9bad5936812ee87778c60d565767",
-    "dsh-bili-peek": "github:ZJ929-max/dsh-bili-peek#34d3a97925608245561b06cf71f9684c8c8ad9ce",
+    "dsh-tool-fold": "github:ZJ929-max/dsh-tool-fold#cd2e0290da5b9bad5936812ee87778c60d565767",
+    "dsh-bili-peek": "github:ZJ929-max/dsh-bili-peek#7f3850eae70129f71872d9c38da691b1e5919eda",
     "dsh-view-image": "github:ZJ929-max/dsh-view-image#5d220e6ca4a83a73c251887eb511a86c0360a4db",
     "@local/agent-bus": "github:ZJ929-max/dsh-agent-bus#3a46f1f33c78dc8782912b565efc127e8ca328b1"
   },

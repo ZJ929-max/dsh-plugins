@@ -30,7 +30,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-tool-fold",
-            "commit": "ef387ce0da5b9bad5936812ee87778c60d565767"
+            "commit": "cd2e0290da5b9bad5936812ee87778c60d565767"
           }
         }
       ]
@@ -56,7 +56,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-bili-peek",
-            "commit": "34d3a97925608245561b06cf71f9684c8c8ad9ce"
+            "commit": "7f3850eae70129f71872d9c38da691b1e5919eda"
           }
         }
       ]

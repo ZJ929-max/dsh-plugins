@@ -61,7 +61,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
       - https://raw.githubusercontent.com/ZJ929-max/dsh-plugins/main/index.json
 ```
 
-3. 索引里每个版本都固定到 40 位 commit；客户端安装参数形如 `git+https://github.com/ZJ929-max/dsh-tool-fold.git#ef387ce...`。
+3. 索引里每个版本都固定到 40 位 commit；客户端安装参数形如 `git+https://github.com/ZJ929-max/dsh-tool-fold.git#cd2e029...`。
 
 注意：
 
@@ -73,8 +73,8 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 | 插件 | 版本 | 仓库 | commit |
 |---|---|---|---|
-| dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `ef387ce0da5b9bad5936812ee87778c60d565767` |
-| dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `34d3a97925608245561b06cf71f9684c8c8ad9ce` |
+| dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `cd2e0290da5b9bad5936812ee87778c60d565767` |
+| dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
 | @local/agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `3a46f1f33c78dc8782912b565efc127e8ca328b1` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（仅索引，不随元包安装） |

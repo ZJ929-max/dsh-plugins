@@ -1,6 +1,6 @@
 # dsh-bili-peek 0.1.0 — 只在被调用时才读 B 站。
 # 逐行照抄自插件仓库的 cordis.patch.yml：
-# https://github.com/ZJ929-max/dsh-bili-peek/blob/34d3a97925608245561b06cf71f9684c8c8ad9ce/cordis.patch.yml
+# https://github.com/ZJ929-max/dsh-bili-peek/blob/7f3850eae70129f71872d9c38da691b1e5919eda/cordis.patch.yml
 - insert:
     - id: bili-peek
       name: dsh-bili-peek
