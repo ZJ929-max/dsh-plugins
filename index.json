@@ -88,7 +88,7 @@
       ]
     },
     {
-      "name": "@local/agent-bus",
+      "name": "dsh-agent-bus",
       "title": {
         "en": "Agent Bus",
         "zh": "会话间消息"
@@ -108,7 +108,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-agent-bus",
-            "commit": "ac3d3933c4f456bf7f7eecbfe6956d0de7e92e5a"
+            "commit": "0657ea957ed23bbacedc5d5411642ef339534472"
           }
         }
       ]

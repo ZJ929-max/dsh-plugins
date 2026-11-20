@@ -76,7 +76,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 | dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `cd2e029e307754b24be23bc305bc2937fac5a536` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
-| @local/agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `ac3d3933c4f456bf7f7eecbfe6956d0de7e92e5a` |
+| dsh-agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `0657ea957ed23bbacedc5d5411642ef339534472` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（仅索引，不随元包安装） |
 
 升级 = 同时改三处：插件仓库的新 commit、元包 `package.json` 的依赖串、`index.json` 的 `versions[].source.commit`（以及 patch 头部注释）。不跟分支、不跟 tag、不写范围。
@@ -104,4 +104,4 @@ scripts/              零依赖校验器与 git pin 检查
 - 尚未做端到端安装实测；仓库上线后按 `DESIGN-NOTES.md` 的验收清单在一次性 profile 里做。
 - 尚未在一次性 profile 里做端到端安装实测；索引与元包结构已通过 DSH 自带解析器/组合器校验。
 - `view-image` 的 patch 里 `codecDir` 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 `PATH`。
-- `@local/agent-bus` 是高权限插件：它能在同一 profile 的会话之间传递文本。安装前读它的 `AI-DISCLOSURE.md`。
+- `dsh-agent-bus` 是高权限插件：它能在同一 profile 的会话之间传递文本。安装前读它的 `AI-DISCLOSURE.md`。

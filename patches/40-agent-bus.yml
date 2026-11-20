@@ -1,6 +1,6 @@
-# @local/agent-bus 1.0.0 — 同一 DSH profile 内的跨会话消息。
+# dsh-agent-bus 1.0.0 — 同一 DSH profile 内的跨会话消息。
 # 逐行照抄自插件仓库的 cordis.patch.yml：
-# https://github.com/ZJ929-max/dsh-agent-bus/blob/ac3d3933c4f456bf7f7eecbfe6956d0de7e92e5a/cordis.patch.yml
+# https://github.com/ZJ929-max/dsh-agent-bus/blob/0657ea957ed23bbacedc5d5411642ef339534472/cordis.patch.yml
 - insert:
     - id: agent-bus
-      name: '@local/agent-bus'
+      name: 'dsh-agent-bus'

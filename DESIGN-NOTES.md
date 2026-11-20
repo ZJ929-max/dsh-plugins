@@ -6,7 +6,7 @@
 ## 1. 本轮结论
 
 1. 元包是**纯 bundle**：没有运行时代码，只有 `package.json`、`patches/*.yml`、索引和文档。
-2. 元包依赖四个插件，全部固定到 40 位 commit：dsh-tool-fold、dsh-bili-peek、dsh-view-image、@local/agent-bus。
+2. 元包依赖四个插件，全部固定到 40 位 commit：dsh-tool-fold、dsh-bili-peek、dsh-view-image、dsh-agent-bus。
 3. `index.json` 是 format 1，收录五个插件（多一个仅索引的 dsh-tokeneconomizer），已用 DSH 自带解析器校验通过。
 4. 四个 patch 文件与插件仓库的 `cordis.patch.yml` **语义逐字段相等**（见 §6）。
 5. 未执行 `install_bundle`，未改 profile，未碰 `C:\Users\zij10\.dsh`，未改任何插件源码。
@@ -81,7 +81,7 @@ parseMarketIndex(index, "https://raw.githubusercontent.com/ZJ929-max/dsh-plugins
 target dsh-tool-fold      → git+https://github.com/ZJ929-max/dsh-tool-fold.git#cd2e029…
 target dsh-bili-peek      → git+https://github.com/ZJ929-max/dsh-bili-peek.git#7f3850e…
 target dsh-view-image     → git+https://github.com/ZJ929-max/dsh-view-image.git#5d220e6…
-target @local/agent-bus   → git+https://github.com/ZJ929-max/dsh-agent-bus.git#ac3d393…
+target dsh-agent-bus   → git+https://github.com/ZJ929-max/dsh-agent-bus.git#0657ea9…
 target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-dsh.git#c338fb4…
 ```
 
@@ -129,13 +129,13 @@ target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-d
 | dsh-tool-fold 0.2.0 | `tool-fold/cordis.patch.yml:2-6` | `plugin-pack/patches/10-tool-fold.yml:5-9` | `tool-fold` / `dsh-tool-fold` / `{enabled: true}` | 语义相等 ✅ |
 | dsh-bili-peek 0.1.0 | `bili-peek/cordis.patch.yml:2-4` | `plugin-pack/patches/20-bili-peek.yml:4-6` | `bili-peek` / `dsh-bili-peek` / 无 config | 语义相等 ✅ |
 | dsh-view-image 0.1.0 | `view-image/cordis.patch.yml:2-9` | `plugin-pack/patches/30-view-image.yml:5-12` | `view-image` / `dsh-view-image` / `{enabled, defaultMaxWidth, codecDir, cacheMaxAgeDays}` | 语义相等 ✅ |
-| @local/agent-bus 1.0.0 | `agent-bus/cordis.patch.yml:1-3` | `plugin-pack/patches/40-agent-bus.yml:4-6` | `agent-bus` / `@local/agent-bus` / 无 config | 语义相等 ✅ |
+| dsh-agent-bus 1.0.0 | `agent-bus/cordis.patch.yml:1-3` | `plugin-pack/patches/40-agent-bus.yml:4-6` | `agent-bus` / `dsh-agent-bus` / 无 config | 语义相等 ✅ |
 | dsh-tokeneconomizer 0.2.0 | `C:\dev\tokeneconomizer-dsh\cordis.patch.yml:1-7` | 不随元包安装 | `tokeneconomizer` / `dsh-tokeneconomizer` / `{enabled, facts, loopguard}` | 仅登记索引，不复制 |
 
 补充说明：
 
 - `view-image` 的 `codecDir: 'C:\dev\tools\codecs'` 是插件自己的默认值（见 `view-image/README.md:28` 与 `view-image/README.md:76`），不是元包另加的机器路径；其他机器可用 profile patch 覆盖。
-- `@local/agent-bus` 的 `package.json` 带 `"private": true`。作为 git 依赖安装通常不受影响，但**发布前建议由 owner 评估是否去掉**；本轮不改别人的文件。
+- `dsh-agent-bus` 的 `package.json` 带 `"private": true`。作为 git 依赖安装通常不受影响，但**发布前建议由 owner 评估是否去掉**；本轮不改别人的文件。
 - `dsh-tool-fold` 的源码目录是 `tool-fold/`，其 `package.json` 的 name 是 `dsh-tool-fold`；`dsh-tool-fold/` 目录只有 patch 等文件，不是仓库根，故比对以 `tool-fold/` 为准。
 
 ## 7. CI 草案（GitHub Actions，无需额外 token）
