@@ -1,0 +1,12 @@
+# dsh-view-image 0.1.0 — 让 agent 看见更多图片格式。
+# 逐行照抄自插件仓库的 cordis.patch.yml：
+# https://github.com/ZJ929-max/dsh-view-image/blob/5d220e6ca4a83a73c251887eb511a86c0360a4db/cordis.patch.yml
+# codecDir 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 PATH。
+- insert:
+    - id: view-image
+      name: dsh-view-image
+      config:
+        enabled: true
+        defaultMaxWidth: 2000
+        codecDir: 'C:\dev\tools\codecs'
+        cacheMaxAgeDays: 7
