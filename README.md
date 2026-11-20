@@ -43,6 +43,8 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`tool-fold` / `bili-peek` / `view-image` / `agent-bus`。
 
+安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `tool-fold` / `bili-peek` / `view-image` / `agent-bus` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
+
 **不要把元包和任何单插件同时安装或启用。** 同一个 id 被两个 bundle insert 时，DSH 不会报错、也不会去重；loader 以 id 为键，后应用的那层生效——结果是静默覆盖，看起来像「插件没装上」。
 
 - 从单插件换到元包：先移除单插件的安装项（或把它从 profile 的 `dsh.profile.bundles` 里去掉），确认它不再提供对应 id，再安装元包。
@@ -103,7 +105,7 @@ scripts/              零依赖校验器与 git pin 检查
 
 ## 已知限制
 
-- 尚未做端到端安装实测；仓库上线后按 `DESIGN-NOTES.md` 的验收清单在一次性 profile 里做。
-- 尚未在一次性 profile 里做端到端安装实测；索引与元包结构已通过 DSH 自带解析器/组合器校验。
+- 端到端安装已在一次性 profile 实测通过（见 `DESIGN-NOTES.md` §8.5）：索引单装零配置；元包需 `blockExoticSubdeps: false` 前置。
 - `view-image` 的 patch 里 `codecDir` 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 `PATH`。
 - `dsh-agent-bus` 是高权限插件：它能在同一 profile 的会话之间传递文本。安装前读它的 `AI-DISCLOSURE.md`。
+- `dsh-tokeneconomizer`（仅索引，不随元包装）：**工具裁剪只出建议、不自动删工具**；事实注入依赖仓库身份，换远端/换路径会重新学习。
