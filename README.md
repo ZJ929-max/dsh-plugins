@@ -2,7 +2,7 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 四个插件仓库（dsh-tool-fold / dsh-bili-peek / dsh-view-image / dsh-agent-bus）和本仓库本身尚待创建。在远端出现之前，下面带 commit 的 git 安装串会 404；本文件先把契约写死，建仓后只需换成真实 commit。
+> 四个插件仓库与元包仓库已上线（ZJ929-max），`index.json` 已可在 raw 地址读取。元包当前可用 commit：`f843a511f7e13789297bd3301eae85e9090e2e3a`。
 
 ## 它是什么，不是什么
 
@@ -18,7 +18,7 @@ agent 调用 `plugin_manager` 需要 danger-full-access；相对本地路径会�
 ```
 plugin_manager {
   action: "install_bundle",
-  target: "github:ZJ929-max/dsh-plugins#<40 位 commit>"
+  target: "github:ZJ929-max/dsh-plugins#f843a511f7e13789297bd3301eae85e9090e2e3a"
 }
 ```
 
@@ -76,7 +76,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 | dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `ef387ce0da5b9bad5936812ee87778c60d565767` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `34d3a97925608245561b06cf71f9684c8c8ad9ce` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
-| @local/agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `0e78d4966cfdf47773920b7d1c8dc26ddc5c2892` |
+| @local/agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `3a46f1f33c78dc8782912b565efc127e8ca328b1` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（仅索引，不随元包安装） |
 
 升级 = 同时改三处：插件仓库的新 commit、元包 `package.json` 的依赖串、`index.json` 的 `versions[].source.commit`（以及 patch 头部注释）。不跟分支、不跟 tag、不写范围。
@@ -102,6 +102,6 @@ scripts/              零依赖校验器与 git pin 检查
 ## 已知限制
 
 - 尚未做端到端安装实测；仓库上线后按 `DESIGN-NOTES.md` 的验收清单在一次性 profile 里做。
-- 四个插件仓库和本仓库尚待创建；`index.json` 的 source URL 现在会 404。
+- 尚未在一次性 profile 里做端到端安装实测；索引与元包结构已通过 DSH 自带解析器/组合器校验。
 - `view-image` 的 patch 里 `codecDir` 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 `PATH`。
 - `@local/agent-bus` 是高权限插件：它能在同一 profile 的会话之间传递文本。安装前读它的 `AI-DISCLOSURE.md`。
