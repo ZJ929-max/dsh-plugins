@@ -101,6 +101,7 @@ DESIGN-NOTES.md       索引 schema、版本策略、互斥规则、CI、验收�
 AI-DISCLOSURE.md      AI 参与范围与未验证项
 .github/workflows/    CI 草案：结构校验 + 公开 commit 可达性
 scripts/              零依赖校验器与 git pin 检查
+docs/plugin-pack/     协调账本（LEDGER.md；索引 pin 与仓库 HEAD 的 SSOT，只读复算 GitHub）
 ```
 
 ## 已知限制
