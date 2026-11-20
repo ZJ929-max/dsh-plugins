@@ -2,7 +2,7 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 四个插件仓库与元包仓库已上线（ZJ929-max），`index.json` 已可在 raw 地址读取。元包当前可用 commit：`f843a511f7e13789297bd3301eae85e9090e2e3a`。
+> 四个插件仓库与元包仓库已上线（ZJ929-max），`index.json` 已可在 raw 地址读取。安装时先用 `git ls-remote https://github.com/ZJ929-max/dsh-plugins.git refs/heads/main` 取当前 main 的 40 位 commit 再固定，不要跟分支。
 
 ## 它是什么，不是什么
 
