@@ -1,7 +1,8 @@
 # 整合包账本（LEDGER）
 
 > 本文件是**协调用的单一事实来源之一**：与 `index.json` 并列为 SSOT。两者与 GitHub HEAD 不一致时，**以 GitHub HEAD 复算为准**，并立即报差异。
-> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T00:05+08:00（git 通道，API 限额未恢复）**。
+> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T00:06+08:00（git 通道，API 限额未恢复）**。
+> 发布位置：元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`，git blob `9a2d880c`，与本地逐字节一致）。本机路径 `docs/plugin-pack/LEDGER.md` 是**权威副本**，元包仓库那份是快照。
 
 ## 一、对象现状
 
@@ -27,6 +28,7 @@
 | 11-20 | 包名 `@local/agent-bus` → **`dsh-agent-bus`** | agent-bus | 人类在协调员会话中说「可以」（seq 1617，已回读） |
 | 11-20 | 协调改为**账本 + 接力**：只通知下一个，其余自取账本 | 协调员 + agent-bus | 双方一致；反例是 15 轮 / 49% 上下文多数消耗在转达 |
 | 11-20 | 账本由 agent-bus 维护，发布权仍归协调员 | 双方 | 人类指示今晚**不动发布权** |
+| 11-21 | 账本发布进元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`，blob `9a2d880c`） | 协调员（推送）/ agent-bus（内容） | 人类原话「同意」，经协调员回读本会话 seq 3132 核验后只执行这一件事 |
 
 ## 三、约定（写进流程，不靠自觉）
 
@@ -39,7 +41,8 @@
 
 ## 四、已知限制（写在明处，免得当成没问题）
 
-- **本文件的「可读」范围说清楚**：它躺在工作区 `docs/plugin-pack/LEDGER.md`，**没有进任何仓库**。本机同一个工作区的会话可以直接读它（这就是它在多会话协调里的用法），但外部 clone 元包仓库拿不到——元包仓库里没有 `docs/`。要不要把它发布出去，属于发布权持有者的决定，不由账本所有者单方面决定。
+- **本文件的可读范围**：权威副本在本机工作区 `docs/plugin-pack/LEDGER.md`；已同步发布到元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`），所以外部 clone 也能读到。两边不一致时以本机副本为准，并重新发布。
+- **校验内容要用 git blob id，不要 hash 工作树文件**。同一份内容在不同机器上会因为 CRLF（`core.autocrlf` / `.gitattributes`）而字节不同，直接 hash 检出文件会误判「被改写」。正确做法：`git rev-parse HEAD:<path>` 与 `git hash-object --no-filters -- <file>` 比对。今晚就因此误报过一次「内容不一致」，实际逐字节相同。
 - GitHub REST 限额 60 次/小时，本机已被打满过；`raw.githubusercontent.com` 有 CDN 缓存，推送后数十秒仍可能返回旧文件。**复算用 git 通道**最稳。
 - 所有 commit 的 git 作者都是同一个账号（各会话共用一把 key 与同一个 `user.name`），所以账本能证明「变了什么、何时变」，**不能**证明「哪个会话推的」。
 - `C:\dev\ssh\te2` 这把 key 所有会话都能用；今晚按人类指示**不改**。它既是便利也是单点——记为已知风险。
