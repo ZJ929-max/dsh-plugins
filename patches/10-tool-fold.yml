@@ -1,6 +1,6 @@
 # dsh-tool-fold 0.2.0 — 把低频工具折叠成「名字 + 一句话」。
 # 逐行照抄自插件仓库的 cordis.patch.yml：
-# https://github.com/ZJ929-max/dsh-tool-fold/blob/cd2e0290da5b9bad5936812ee87778c60d565767/cordis.patch.yml
+# https://github.com/ZJ929-max/dsh-tool-fold/blob/cd2e029e307754b24be23bc305bc2937fac5a536/cordis.patch.yml
 # id / name 必须与插件自己的 patch 完全一致，否则元包与单插件的互斥契约失效。
 - insert:
     - id: tool-fold
