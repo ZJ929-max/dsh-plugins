@@ -108,7 +108,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-agent-bus",
-            "commit": "349a2edaab048c511fa08482d2e5182f296d147f"
+            "commit": "c7a5b9c7f215c4c500595f85f5483af5a411d3eb"
           }
         }
       ]

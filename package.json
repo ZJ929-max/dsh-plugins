@@ -33,7 +33,7 @@
     "dsh-tool-fold": "github:ZJ929-max/dsh-tool-fold#cd2e029e307754b24be23bc305bc2937fac5a536",
     "dsh-bili-peek": "github:ZJ929-max/dsh-bili-peek#7f3850eae70129f71872d9c38da691b1e5919eda",
     "dsh-view-image": "github:ZJ929-max/dsh-view-image#5d220e6ca4a83a73c251887eb511a86c0360a4db",
-    "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus#349a2edaab048c511fa08482d2e5182f296d147f"
+    "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus#c7a5b9c7f215c4c500595f85f5483af5a411d3eb"
   },
   "engines": {
     "node": ">=22"

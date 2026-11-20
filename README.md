@@ -80,7 +80,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 | dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `cd2e029e307754b24be23bc305bc2937fac5a536` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
-| dsh-agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `349a2edaab048c511fa08482d2e5182f296d147f` |
+| dsh-agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `c7a5b9c7f215c4c500595f85f5483af5a411d3eb` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（仅索引，不随元包安装） |
 
 升级 = 同时改三处：插件仓库的新 commit、元包 `package.json` 的依赖串、`index.json` 的 `versions[].source.commit`（以及 patch 头部注释）。不跟分支、不跟 tag、不写范围。
