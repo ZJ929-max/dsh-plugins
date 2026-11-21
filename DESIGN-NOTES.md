@@ -1,4 +1,4 @@
-> **2026-11-21 变更**：agent-bus 已移出元包与索引（上游 MistyBridge/dsh-agent-bus 定位重合，见 README）。下文涉及 agent-bus 的段落保留为历史记录，不再代表现状。
+> **2026-11-21 变更**：agent-bus 已移出元包与索引（上游 MistyBridge/dsh-agent-bus 定位重合，见 README）。**它现在只是本机保留的内部协调通道，不对外分发、不在任何安装说明里。**下文涉及 agent-bus 的段落保留为历史记录，不再代表成员身份或安装步骤。
 
 # DESIGN-NOTES —— 元包 + 索引（第一轮骨架）
 

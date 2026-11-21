@@ -43,7 +43,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`tool-fold` / `bili-peek` / `view-image` / `tokeneconomizer`。
 
-安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `tool-fold` / `bili-peek` / `view-image` / `agent-bus` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
+安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `tool-fold` / `bili-peek` / `view-image` / `tokeneconomizer` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
 
 **不要把元包和任何单插件同时安装或启用。** 同一个 id 被两个 bundle insert 时，DSH 不会报错、也不会去重；loader 以 id 为键，后应用的那层生效——结果是静默覆盖，看起来像「插件没装上」。
 

@@ -12,7 +12,7 @@ What that means concretely:
 What it does not mean:
 
 - It is not a claim that the bundle installs cleanly end to end. That test is listed as pending in `DESIGN-NOTES.md` because the GitHub repositories did not exist when this draft was written.
-- It is not a substitute for reading the plugins' own disclosures. `dsh-agent-bus` is high privilege by design; `dsh-view-image` invokes external decoders; `dsh-bili-peek` makes network requests when called.
+- It is not a substitute for reading the plugins' own disclosures. `dsh-view-image` invokes external decoders; `dsh-bili-peek` makes network requests when called.
 - Where a number or a URL is quoted, it came from the repository state at the time of writing; commits are pinned so the quotes stay checkable.
 
 If you find a defect in this layer, please open an issue with the exact command and the observed output. Defects in a plugin belong in that plugin's repository.
