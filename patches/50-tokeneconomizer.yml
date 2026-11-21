@@ -1,0 +1,10 @@
+# dsh-tokeneconomizer —— 本地事实 / 失败循环止损 / 工具裁剪建议。
+# 工具裁剪只出建议、不自动删工具；事实注入依赖仓库身份。
+# 随元包按 main 最新安装；索引侧仍按 40 位 commit 固定。
+- insert:
+    - id: tokeneconomizer
+      name: dsh-tokeneconomizer
+      config:
+        enabled: true
+        facts: true
+        loopguard: true

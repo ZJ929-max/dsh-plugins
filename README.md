@@ -2,7 +2,7 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 四个插件仓库与元包仓库已上线（ZJ929-max），`index.json` 已可在 raw 地址读取。安装时先用 `git ls-remote https://github.com/ZJ929-max/dsh-plugins.git refs/heads/main` 取当前 main 的 40 位 commit 再固定，不要跟分支。
+> 五个插件仓库与元包仓库已上线（ZJ929-max）。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。
 
 ## 它是什么，不是什么
 
@@ -18,7 +18,7 @@ agent 调用 `plugin_manager` 需要 danger-full-access；相对本地路径会�
 ```
 plugin_manager {
   action: "install_bundle",
-  target: "github:ZJ929-max/dsh-plugins#<40 位 commit>"
+  target: "github:ZJ929-max/dsh-plugins"
 }
 ```
 
@@ -37,7 +37,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 > **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
 
-装完应出现四个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox`。
+装完应出现五个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox`、`tokeneconomizer`。
 
 ## 互斥规则（必读）
 
@@ -81,9 +81,9 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
 | dsh-agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `c7a5b9c7f215c4c500595f85f5483af5a411d3eb` |
-| dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（仅索引，不随元包安装） |
+| dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（索引固定；元包跟 main 最新） |
 
-升级 = 同时改三处：插件仓库的新 commit、元包 `package.json` 的依赖串、`index.json` 的 `versions[].source.commit`（以及 patch 头部注释）。不跟分支、不跟 tag、不写范围。
+升级分两条路：**元包**的依赖写 `github:ZJ929-max/<repo>`（跟 main 最新），装一次就是当时最新；**索引**继续按 40 位 commit 固定，升级时改 `index.json` 的 `versions[].source.commit`。元包不追求可复现，索引追求可复现。
 
 ## 许可证与 AI 披露
 

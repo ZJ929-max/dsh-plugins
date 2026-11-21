@@ -12,11 +12,11 @@ const fail = (message) => problems.push(message);
 const textOf = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const jsonOf = (relative) => JSON.parse(textOf(relative));
 
-const GIT_PIN = /^github:([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)#([0-9a-f]{40})$/u;
+const GIT_PIN = /^github:([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)(?:#([0-9a-f]{40}))?$/u;
 const PACKAGE_NAME = /^(?:@[a-z0-9][a-z0-9._~-]*\/)?[a-z0-9][a-z0-9._~-]*$/u;
 const SEMVER = /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$/u;
 const COMMIT = /^[0-9a-f]{40}$/u;
-const RETIRED_INDEX_ONLY = new Set(["dsh-tokeneconomizer"]);
+const RETIRED_INDEX_ONLY = new Set([]);
 
 function localizedEn(value) {
   if (typeof value === "string") return value.trim() !== "";
@@ -52,7 +52,7 @@ for (const [name, spec] of Object.entries(deps)) {
     fail("package.json: dependency " + name + " must be github:owner/repo#<40 lowercase hex> (got " + spec + ")");
     continue;
   }
-  depPins.set(name, { repo: match[1] + "/" + match[2], commit: match[3] });
+  depPins.set(name, { repo: match[1] + "/" + match[2], commit: match[3] ?? null });
 }
 if (depPins.size === 0) fail("package.json: no pinned dependencies");
 
@@ -82,9 +82,11 @@ for (const file of patchList === undefined ? [] : patchList) {
   if (patchedNames.has(name)) fail(file + ": dependency " + name + " is patched twice");
   patchedNames.add(name);
   const pin = depPins.get(name);
-  const header = /github\.com\/[^/\s]+\/[^/\s]+\/blob\/([0-9a-f]{40})\/cordis\.patch\.yml/u.exec(text);
-  if (header === null) fail(file + ": header must link cordis.patch.yml at a 40-hex commit");
-  else if (pin !== undefined && header[1] !== pin.commit) fail(file + ": header commit " + header[1] + " differs from dependency pin " + pin.commit);
+  if (pin !== undefined && pin.commit !== null) {
+    const header = /github\.com\/[^/\s]+\/[^/\s]+\/blob\/([0-9a-f]{40})\/cordis\.patch\.yml/u.exec(text);
+    if (header === null) fail(file + ": header must link cordis.patch.yml at a 40-hex commit");
+    else if (header[1] !== pin.commit) fail(file + ": header commit " + header[1] + " differs from dependency pin " + pin.commit);
+  }
 }
 for (const name of depPins.keys()) {
   if (!patchedNames.has(name)) fail("dependency " + name + " has no insert patch");
@@ -152,7 +154,7 @@ for (const [name, pin] of depPins) {
   const latest = Array.isArray(plugin.versions) && plugin.versions.length > 0 ? plugin.versions[0] : undefined;
   if (latest === undefined) continue;
   const source = latest.source === undefined ? {} : latest.source;
-  if (source.commit !== pin.commit) fail("index.json: " + name + " commit " + String(source.commit) + " differs from dependency pin " + pin.commit);
+  if (pin.commit !== null && source.commit !== pin.commit) fail("index.json: " + name + " commit " + String(source.commit) + " differs from dependency pin " + pin.commit);
   const expectedUrl = "https://github.com/" + pin.repo;
   if (source.url !== expectedUrl) fail("index.json: " + name + " source url " + String(source.url) + " differs from " + expectedUrl);
 }

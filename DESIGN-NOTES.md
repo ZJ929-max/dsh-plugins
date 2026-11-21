@@ -87,7 +87,14 @@ target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-d
 
 安装参数由 `marketInstallTarget()` 生成，和索引里的 source 一致。**索引本身还不能被远端读取**：仓库未建，URL 未上线。
 
-## 4. 版本固定策略
+## 4. 版本固定策略（2026-11-21 起两条轨道）
+
+- **元包轨道：跟 main 最新。** package.json 依赖写成 github:ZJ929-max/<repo>（不带 #commit），装一次就拿各插件当时的最新 main；不追求可复现。
+- **索引轨道：钉 40 位 commit。** index.json 的 versions[].source.commit 必须可复现，供需要固定版本的场景。
+- 两条轨道可以不同步：元包领先、索引落后是正常状态；LEDGER.md 记录索引 pin 与仓库 HEAD 的关系。
+- 代价：元包安装结果随时间漂移；出现问题时先记录安装时间，再按索引回退。
+
+## 4.1 版本固定策略（旧版，已废弃）
 
 - **唯一粒度是 commit**：依赖串 `github:owner/repo#<40-hex>`；索引 `source.commit` 同一个值；patch 头部注释引用同一个 commit 的 `cordis.patch.yml`。不跟分支、tag 或 semver 范围。
 - **为什么不用 tag**：索引只认 40 位 commit；tag 可以被移动，commit 不会。
