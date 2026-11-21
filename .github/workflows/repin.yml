@@ -1,0 +1,56 @@
+name: repin
+
+# Keep index.json (and the commit hash quoted by each patch header) in step with
+# the plugin repositories' default branches. The meta pack floats to main, so a
+# pinned index drifts on its own; this workflow is what closes that gap without
+# a human session in the loop.
+#
+# Manual run: Actions → repin → Run workflow. `check` never writes; `commit`
+# rewrites the index and pushes one commit.
+# Scheduled run is the auto-commit path (daily, low-traffic hour).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'check = 只预览不写；commit = 重钉并推送'
+        type: choice
+        options: [check, commit]
+        default: check
+  schedule:
+    - cron: '37 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repin
+  cancel-in-progress: false
+
+jobs:
+  repin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Preview what would change
+        run: node scripts/repin.mjs --dry-run
+
+      - name: Commit and push
+        if: ${{ (github.event.inputs.mode || 'commit') == 'commit' }}
+        run: |
+          node scripts/repin.mjs
+          if git diff --quiet -- index.json patches; then
+            echo "repin: index already tracks the plugin branches"
+            exit 0
+          fi
+          # Never publish an index this repository cannot validate.
+          node scripts/validate.mjs
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.json patches
+          git commit -m "repin: index tracks plugin main ($(date -u +%Y-%m-%d)) [skip ci]"
+          git push
