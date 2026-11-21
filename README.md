@@ -2,14 +2,14 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 五个插件仓库与元包仓库已上线（ZJ929-max）。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。
+> 四个插件仓库与元包仓库已上线（ZJ929-max）。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。agent-bus 已移出（原因见下）。
 
 ## 它是什么，不是什么
 
 - **是**一个纯 bundle：`package.json` 用 `dsh.bundle.patch` 指向 `patches/*.yml`，每个文件照抄对应插件的 `cordis.patch.yml` insert 行，保留原 `id` 与 `name`。
 - **是**一份 format 1 市场索引：`index.json` 列出每个插件的版本、仓库，以及固定到 40 位 commit 的 git 源。
 - **不是**插件代码的合并，不修改任何插件源码，不代替插件的独立发布。
-- 元包不发布 npm；安装走 git 固定 commit。
+- 元包不发布 npm；安装跟 main 最新；索引侧钉 commit。
 
 ## 安装：元包（一次装齐）
 
@@ -37,11 +37,11 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 > **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
 
-装完应出现五个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox`、`tokeneconomizer`。
+装完应出现四个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`tokeneconomizer`。
 
 ## 互斥规则（必读）
 
-元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`tool-fold` / `bili-peek` / `view-image` / `agent-bus`。
+元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`tool-fold` / `bili-peek` / `view-image` / `tokeneconomizer`。
 
 安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `tool-fold` / `bili-peek` / `view-image` / `agent-bus` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
 
@@ -73,6 +73,10 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 - `raw.githubusercontent.com` 有缓存延迟；刚更新的索引可能几分钟后才可见，急用可换 GitHub Pages。
 - 索引 URL 在仓库创建前不存在；上线前请勿把这条 URL 配进 profile。
 
+## 为什么没有 agent-bus
+
+上游已有成熟实现：[MistyBridge/dsh-agent-bus](https://github.com/MistyBridge/dsh-agent-bus)（npm `dsh-agent-bus`，MIT，2026-08 起，包含 note / task / flow / panel / ledger）。我们在 2026-11-20 也写过一个同功能插件，但核心投递与其重合；按「重合就不重复造」的原则，本整合包**不再包含 agent-bus**，也不再占用该 npm 包名。需要多会话编排请直接用上游。
+
 ## 版本固定
 
 | 插件 | 版本 | 仓库 | commit |
@@ -80,7 +84,6 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 | dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `cd2e029e307754b24be23bc305bc2937fac5a536` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
-| dsh-agent-bus | 1.0.0 | ZJ929-max/dsh-agent-bus | `c7a5b9c7f215c4c500595f85f5483af5a411d3eb` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（索引固定；元包跟 main 最新） |
 
 升级分两条路：**元包**的依赖写 `github:ZJ929-max/<repo>`（跟 main 最新），装一次就是当时最新；**索引**继续按 40 位 commit 固定，升级时改 `index.json` 的 `versions[].source.commit`。元包不追求可复现，索引追求可复现。
@@ -94,7 +97,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 ## 目录
 
 ```
-package.json          元包声明：dsh.bundle.patch + 固定 commit 的依赖
+package.json          元包声明：dsh.bundle.patch + 跟 main 的依赖
 patches/*.yml         四个插件各自的 insert 行（照抄，保留原 id）
 index.json            format 1 市场索引
 DESIGN-NOTES.md       索引 schema、版本策略、互斥规则、CI、验收证据
@@ -108,5 +111,4 @@ docs/plugin-pack/     协调账本（LEDGER.md；索引 pin 与仓库 HEAD 的 S
 
 - 端到端安装已在一次性 profile 实测通过（见 `DESIGN-NOTES.md` §8.5）：索引单装零配置；元包需 `blockExoticSubdeps: false` 前置。
 - `view-image` 的 patch 里 `codecDir` 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 `PATH`。
-- `dsh-agent-bus` 是高权限插件：它能在同一 profile 的会话之间传递文本。安装前读它的 `AI-DISCLOSURE.md`。
-- `dsh-tokeneconomizer`（仅索引，不随元包装）：**工具裁剪只出建议、不自动删工具**；事实注入依赖仓库身份，换远端/换路径会重新学习。
+- `dsh-tokeneconomizer`（随元包，跟 main）：**工具裁剪只出建议、不自动删工具**；事实注入依赖仓库身份，换远端/换路径会重新学习。

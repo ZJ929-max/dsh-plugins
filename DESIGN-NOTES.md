@@ -1,3 +1,5 @@
+> **2026-11-21 变更**：agent-bus 已移出元包与索引（上游 MistyBridge/dsh-agent-bus 定位重合，见 README）。下文涉及 agent-bus 的段落保留为历史记录，不再代表现状。
+
 # DESIGN-NOTES —— 元包 + 索引（第一轮骨架）
 
 > 版本 0.1.0 · 2026-11-20 · 写作用域仅 `plugin-pack/`。

@@ -88,32 +88,6 @@
       ]
     },
     {
-      "name": "dsh-agent-bus",
-      "title": {
-        "en": "Agent Bus",
-        "zh": "会话间消息"
-      },
-      "description": {
-        "en": "Cross-session messaging inside one DSH profile: agent_bus_post and agent_bus_inbox. High privilege by design; read its disclosure first.",
-        "zh": "同一 DSH profile 内的跨会话消息：agent_bus_post / agent_bus_inbox。高权限，安装前先读它的 AI 披露。"
-      },
-      "homepage": "https://github.com/ZJ929-max/dsh-agent-bus#readme",
-      "repository": {
-        "url": "https://github.com/ZJ929-max/dsh-agent-bus"
-      },
-      "versions": [
-        {
-          "version": "1.0.0",
-          "publishTimestamp": 1795157602,
-          "source": {
-            "type": "git",
-            "url": "https://github.com/ZJ929-max/dsh-agent-bus",
-            "commit": "c7a5b9c7f215c4c500595f85f5483af5a411d3eb"
-          }
-        }
-      ]
-    },
-    {
       "name": "dsh-tokeneconomizer",
       "title": {
         "en": "TokenEconomizer for DSH",
