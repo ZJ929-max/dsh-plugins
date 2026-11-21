@@ -129,6 +129,8 @@ target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-d
 
 结论：组合层确实不去重、也不报警，后拼入的同 id 行排在后面（与源码调研的「后者生效」一致）。真实 loader 的挂载覆盖仍需双装实验确认，因此 README 把「二选一」写成硬规则而不是可选项。
 
+> agent-bus 已于 2026-11-21 移出整合包；本节含 agent-bus 的表格为历史记录，不代表现状。
+
 ## 6. Patch 只读比对（本轮证据）
 
 方法：用 `yaml` 解析器分别读取插件仓库的 `cordis.patch.yml` 与本仓库的 patch 文件，`JSON.stringify` 后比较；同时用官方 `parseMarketIndex` 验证索引。比对时间：2026-11-20 14:5x（Asia/Hong_Kong）。

@@ -81,7 +81,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 | 插件 | 版本 | 仓库 | commit |
 |---|---|---|---|
-| dsh-tool-fold | 0.2.0 | ZJ929-max/dsh-tool-fold | `cd2e029e307754b24be23bc305bc2937fac5a536` |
+| dsh-tool-fold | 0.2.1 | ZJ929-max/dsh-tool-fold | `8527fd0f1cd3af4ff42facec051f1e299bb69b38` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（索引固定；元包跟 main 最新） |
