@@ -70,6 +70,7 @@ process.exit(bad === 0 ? 0 : 1);
 NODE
 
 count=0
+drift=0
 while IFS=$'\t' read -r name repo pin version; do
   count=$((count + 1))
   dir="$work/repo-$count"
@@ -97,7 +98,19 @@ while IFS=$'\t' read -r name repo pin version; do
   fi
   behind="$(git -C "$dir" rev-list --count "$pin..refs/remotes/origin/$branch")"
   head="$(git -C "$dir" rev-parse --short=8 "refs/remotes/origin/$branch")"
+  if [ "$behind" -gt 0 ]; then
+    if [ "${CHECK_PINS_STRICT:-0}" = "1" ]; then
+      echo "::error::check-pins: $name: index pin ${pin:0:8} is $behind commit(s) behind $repo@$branch ($head) and CHECK_PINS_STRICT=1" >&2
+      drift=$((drift + 1))
+    else
+      echo "::warning::check-pins: $name: index pin ${pin:0:8} is $behind commit(s) behind $repo@$branch ($head)"
+    fi
+  fi
   echo "ok $name $repo@$branch pin=${pin:0:8} head=$head behind=$behind version=$version"
 done < "$work/pairs.tsv"
 
 echo "check-pins: OK — $count pins are reachable and sit on their default branch"
+if [ "${CHECK_PINS_STRICT:-0}" = "1" ] && [ "${drift:-0}" -gt 0 ]; then
+  echo "check-pins: $drift pin(s) are behind their repository head" >&2
+  exit 1
+fi

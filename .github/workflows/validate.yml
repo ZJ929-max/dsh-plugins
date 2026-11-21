@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  # A pinned index can drift without any push to this repository: the plugin
+  # repositories move on their own. The daily run surfaces that as warnings
+  # (::warning::check-pins: … is N commit(s) behind …) instead of silence.
+  schedule:
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,4 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Verify every pinned commit is public and reachable
+        # Set CHECK_PINS_STRICT=1 to fail on drift instead of warning. The push and
+        # pull-request runs stay non-strict so a plugin moving ahead never blocks
+        # this repository; use the manual run with the env to gate a release.
         run: bash scripts/check-pins.sh
