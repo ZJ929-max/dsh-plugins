@@ -1,21 +1,22 @@
 # 整合包账本（LEDGER）
 
+> **维护者**：de54（2026-11-21 起为跨会话协调员）；lead 转顾问。账本与索引 pin 的最终核对权在维护者，发布权随协调权一并移交（人类裁决 C，对方会话 seq 3927 选项 / 3934 原话「c」，已回读核验）。
 > 本文件是**协调用的单一事实来源之一**：与 `index.json` 并列为 SSOT。两者与 GitHub HEAD 不一致时，**以 GitHub HEAD 复算为准**，并立即报差异。
-> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T00:51+08:00（git 通道）**。
-> 发布位置：元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`，git blob `9a2d880c`，与本地逐字节一致）。本机路径 `docs/plugin-pack/LEDGER.md` 是**权威副本**，元包仓库那份是快照。
+> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T01:03+08:00（git 通道）**。
+> 发布位置：元包仓库 `docs/plugin-pack/LEDGER.md`；本机 `docs/plugin-pack/LEDGER.md` 是**权威副本**，元包仓库那份是快照（每次更新随提交历史记录，不在正文里自指 commit）。
 
 ## 一、对象现状
 
 | 对象 | 索引 pin | 仓库 HEAD | 状态 | 证据 | 更新人 | 更新时间 |
 |---|---|---|---|---|---|---|
-| **dsh-tool-fold 0.2.0** | `cd2e029e3077…` | `8527fd0f…` | 🟡 **pin 落后 1**（0.2.1 修复未进索引） | <https://github.com/ZJ929-max/dsh-tool-fold/commit/8527fd0f> | owner | 2026-11-21T00:5xZ |
+| dsh-tool-fold **0.2.1** | `8527fd0f1cd3…` | `8527fd0f1cd3…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-tool-fold/commit/8527fd0f1cd3af4ff42facec051f1e299bb69b38> | lead（重钉） | 2026-11-21T01:02Z |
 | dsh-bili-peek 0.1.0 | `7f3850eae701…` | `7f3850eae701…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-bili-peek/commit/7f3850ea> | owner | 2026-11-20T08:22Z |
 | dsh-view-image 0.1.0 | `5d220e6c…` | `5d220e6c…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-view-image/commit/5d220e6c> | owner | 2026-11-20T08:22Z |
 | dsh-tokeneconomizer 0.2.0 | `c338fb44…` | `c338fb44…` | ✅ 一致 | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/c338fb44> | owner | 2026-11-20T08:22Z |
 | ~~dsh-agent-bus~~ | 索引已删 | `5c4b2da` | ⚪ **移出整合包**（内部保留） | <https://github.com/ZJ929-max/dsh-agent-bus/commit/5c4b2da> | 协调员（00:49Z 裁定）/ agent-bus（提交） | 2026-11-21T00:49Z |
-| 元包 dsh-plugins | — | `15ef0ec4…` | ✅ 在线 | <https://github.com/ZJ929-max/dsh-plugins/commit/15ef0ec4> | 协调员 | 2026-11-21T00:51Z |
+| 元包 dsh-plugins | — | `b7d20436…` | ✅ 在线 | <https://github.com/ZJ929-max/dsh-plugins/commit/b7d20436> | lead | 2026-11-21T01:02Z |
 
-**当前状态（2026-11-21T00:51Z 复算，git 通道）：索引 4 个成员，3 个 MATCH；`dsh-tool-fold` pin `cd2e029e`(0.2.0) 落后仓库 HEAD `8527fd0f`(0.2.1，修复「先应用新限制再撤旧限制」)，需重钉 + 版本号改 0.2.1。**
+**当前状态（2026-11-21T01:03Z 复算，git 通道）：索引 4 个成员全部 MATCH。`dsh-tool-fold` 已重钉到 0.2.1 `8527fd0f`（功能性修复：先应用新限制再撤旧限制）。**
 agent-bus 已按协调员裁定移出索引（元包 `23d2fa0`），本机实例保留、不再对外分发；文档口径在 `15ef0ec` 里改成「内部保留、无安装路径」。
 
 ## 二、决策账
@@ -29,6 +30,7 @@ agent-bus 已按协调员裁定移出索引（元包 `23d2fa0`），本机实例
 | 11-20 | 协调改为**账本 + 接力**：只通知下一个，其余自取账本 | 协调员 + agent-bus | 双方一致；反例是 15 轮 / 49% 上下文多数消耗在转达 |
 | 11-20 | 账本由 agent-bus 维护，发布权仍归协调员 | 双方 | 人类指示今晚**不动发布权** |
 | 11-21 | **agent-bus 移出整合包**（元包/索引删除该条；本机实例仅作内部协调通道） | 协调员裁定 | 协调员称依人类原则「重合就不重复造」；转述未获本会话人类确认，标为「待确认」 |
+| 11-21 | **协调权与发布权由 lead 移交 de54**；lead 转顾问、只答不问不发 | 人类裁决 C | 对方会话 seq 3927（选项含「C：协调权移交 de54，我转顾问」）/ seq 3934（`user/message`，`source.kind=user`，原文「c」），已按回读规程核验 |
 | 11-21 | 文档口径修正：README / AI-DISCLOSURE / DESIGN-NOTES 改成「内部保留、无安装路径」（`15ef0ec`） | 协调员 | 索引删条目后文档仍称成员，会误导安装 |
 | 11-21 | 发现**包名冲突**：npm 上 `dsh-agent-bus` 是 MistyBridge 的既有包（MIT，0.1.1，2026-08，多 agent 编排 /「不用你当信使」） | 待人类决定 | `registry.npmjs.org/dsh-agent-bus` 实测；按名字安装会解析到对方，故本包不得对外发布 |
 | 11-21 | 账本发布进元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`，blob `9a2d880c`） | 协调员（推送）/ agent-bus（内容） | 人类原话「同意」，经协调员回读本会话 seq 3132 核验后只执行这一件事 |
