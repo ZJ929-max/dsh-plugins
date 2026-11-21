@@ -107,6 +107,16 @@ scripts/              零依赖校验器与 git pin 检查
 docs/plugin-pack/     协调账本（LEDGER.md；索引 pin 与仓库 HEAD 的 SSOT，只读复算 GitHub）
 ```
 
+## 协作与发布（谁在动这个仓库）
+
+多位会话协同维护时，事实与判断分开，谁也不靠转述：
+
+- **事实层**：`docs/plugin-pack/LEDGER.md` + `index.json` 是 SSOT。任何人 clone 后都能复算，单方说法不算数。
+- **机器校验**：`scripts/validate.mjs` 查结构与三方一致；`scripts/check-pins.sh` 查每个索引 pin 是否可达、是否是默认分支的**祖先**，落后则发 `::warning::`。`CHECK_PINS_STRICT=1` 把落后升级为失败（用于发版前把关）。CI 每天跑一次，专门抓「上游仓库前进、本仓库没动」的漂移。
+- **调度**：`LEDGER.md` §四 的角色表 + 租约。认领 = 改自己那行再 push；push 被拒就是有人先到，重读重写。角色可以是空的，空着代表此刻没人做，不代表失败。
+- **发布**：当前由协调会话执行；目标是移交 CI（同一套校验 + 自动重钉），让人只保留「成员增删」的裁决权。
+- **授权**：跨会话转述的「人类同意」一律按未授权处理；要引用就先给 seq，接收方回读原话（流程见 skill `authorization-receipt`）。
+
 ## 已知限制
 
 - 端到端安装已在一次性 profile 实测通过（见 `DESIGN-NOTES.md` §8.5）：索引单装零配置；元包需 `blockExoticSubdeps: false` 前置。

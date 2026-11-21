@@ -94,6 +94,7 @@ target dsh-tokeneconomizer→ git+https://github.com/ZJ929-max/tokeneconomizer-d
 - **元包轨道：跟 main 最新。** package.json 依赖写成 github:ZJ929-max/<repo>（不带 #commit），装一次就拿各插件当时的最新 main；不追求可复现。
 - **索引轨道：钉 40 位 commit。** index.json 的 versions[].source.commit 必须可复现，供需要固定版本的场景。
 - 两条轨道可以不同步：元包领先、索引落后是正常状态；LEDGER.md 记录索引 pin 与仓库 HEAD 的关系。
+- **校验分工（2026-11-21 修正）**：浮动依赖下 `validate.mjs` 会跳过「索引 ↔ 依赖同 commit」那一段（依赖没有 commit 可比），所以那条不变式改由 `check-pins.sh` 承担——它检查 pin 可达且是默认分支的祖先，落后发 warning，`CHECK_PINS_STRICT=1` 时失败。CI 每天定时跑一次以发现「上游前进」造成的漂移。
 - 代价：元包安装结果随时间漂移；出现问题时先记录安装时间，再按索引回退。
 
 ## 4.1 版本固定策略（旧版，已废弃）

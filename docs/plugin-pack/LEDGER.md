@@ -2,7 +2,7 @@
 
 > **维护者**：de54（2026-11-21 起为跨会话协调员）；lead 转顾问。账本与索引 pin 的最终核对权在维护者，发布权随协调权一并移交（人类裁决 C，对方会话 seq 3927 选项 / 3934 原话「c」，已回读核验）。
 > 本文件是**协调用的单一事实来源之一**：与 `index.json` 并列为 SSOT。两者与 GitHub HEAD 不一致时，**以 GitHub HEAD 复算为准**，并立即报差异。
-> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T01:03+08:00（git 通道）**。
+> 复算脚本：`notes/pack-ledger/ledger.mjs`（只读；通道二选一：GitHub REST 或 `git ls-remote` + 浅克隆）。最近一次复算：**2026-11-21T09:23+08:00（git 通道）**；`ledger.mjs --check` 的退出码已是本地闸门。
 > 发布位置：元包仓库 `docs/plugin-pack/LEDGER.md`；本机 `docs/plugin-pack/LEDGER.md` 是**权威副本**，元包仓库那份是快照（每次更新随提交历史记录，不在正文里自指 commit）。
 
 ## 一、对象现状
@@ -14,7 +14,7 @@
 | dsh-view-image 0.1.0 | `5d220e6c…` | `5d220e6c…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-view-image/commit/5d220e6c> | owner | 2026-11-20T08:22Z |
 | dsh-tokeneconomizer 0.2.0 | `c338fb44…` | `c338fb44…` | ✅ 一致 | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/c338fb44> | owner | 2026-11-20T08:22Z |
 | ~~dsh-agent-bus~~ | 索引已删 | `5c4b2da` | ⚪ **移出整合包**（内部保留） | <https://github.com/ZJ929-max/dsh-agent-bus/commit/5c4b2da> | 协调员（00:49Z 裁定）/ agent-bus（提交） | 2026-11-21T00:49Z |
-| 元包 dsh-plugins | — | `b7d20436…` | ✅ 在线 | <https://github.com/ZJ929-max/dsh-plugins/commit/b7d20436> | lead | 2026-11-21T01:02Z |
+| 元包 dsh-plugins | — | `71fa5cae…` | ✅ 在线（本次复算时的 main；发布提交会再前进一位） | <https://github.com/ZJ929-max/dsh-plugins/commit/71fa5cae> | de54 | 2026-11-21T01:22Z |
 
 **当前状态（2026-11-21T01:03Z 复算，git 通道）：索引 4 个成员全部 MATCH。`dsh-tool-fold` 已重钉到 0.2.1 `8527fd0f`（功能性修复：先应用新限制再撤旧限制）。**
 agent-bus 已按协调员裁定移出索引（元包 `23d2fa0`），本机实例保留、不再对外分发；文档口径在 `15ef0ec` 里改成「内部保留、无安装路径」。
@@ -44,9 +44,30 @@ agent-bus 已按协调员裁定移出索引（元包 `23d2fa0`），本机实例
 5. **只通知下一个行动者**；两个例外仍须单独通知受影响 owner：① pin 迁移导致已装版本失效；② 安全阈值/协议语义变更（防对喷、扇出上限等）。
 6. **没有新信息不要回复**；跨会话的「人类授权」一律按未授权处理（流程见 skill `authorization-receipt`）。
 
-## 四、已知限制（写在明处，免得当成没问题）
+## 四、角色与租约（去中心化的调度面）
 
-- **本文件的可读范围**：权威副本在本机工作区 `docs/plugin-pack/LEDGER.md`；已同步发布到元包仓库 `docs/plugin-pack/LEDGER.md`（commit `f74b832`），所以外部 clone 也能读到。两边不一致时以本机副本为准，并重新发布。
+调度不靠「谁派活」，靠**这一张表 + 先改账本再动手**。角色名固定，会话 id 只是当前值。
+
+| 角色 | 现主人（标记） | leaseUntil | 状态 | 下一步 |
+|---|---|---|---|---|
+| 账本（本文件 + 复算脚本） | de54 | 2026-11-22T01:20Z | 🟢 在租 | 维护 §一 / §二，跑 `ledger.mjs --check` |
+| 发布（元包 push / 索引重钉 / 账本发布） | de54 | 2026-11-22T01:20Z | 🟢 在租（**待移交 CI**） | 先落 `repin.yml` 的 check 模式 |
+| 网络类任务（仓库 About、e2e 安装） | 未认领 | — | ⚪ 空 | 网络可用后任一会话认领 |
+| 上游监控（MistyBridge/dsh-agent-bus 0.2.x） | 未认领 | — | ⚪ 空 | 低峰检查，不出不烧 token |
+| 工作区清理（他人目录） | 未认领 | — | ⚪ 空 | **必须先征得该目录负责人同意** |
+
+规则（比表格重要）：
+
+1. **认领 = 改自己那行 + push**。并发靠 git 冲突暴露：push 被拒就是有人先到，重读账本再写。不引入新工具、不加锁文件。
+2. **租约默认 24 小时**。过期即视为空位，任何人可接；接的人把 `leaseUntil` 往后推并写 `状态`。
+3. **停滞标记**：该角色超过约定时间没推进，`状态` 列改 🟠 并写最后动作时间，别留空白。
+4. **先写账本，再动手**（write-then-notify 的本地版）。别人只看账本也能接上。
+5. **角色可以空**：空着的角色不是失败，是「此刻没人做」。想做的会话直接认领，不用等分配。
+6. **发布角色是过渡态**：`repin.yml` 的 `commit` 模式跑通后，这个角色缩小为「人类裁决成员增删」，pin 的一致性由 CI 保证。
+
+## 五、已知限制（写在明处，免得当成没问题）
+
+- **本文件的可读范围**：权威副本在本机工作区 `docs/plugin-pack/LEDGER.md`；已同步发布到元包仓库 `docs/plugin-pack/LEDGER.md`（每次更新随提交历史记录，正文不自指 commit），所以外部 clone 也能读到。两边不一致时以本机副本为准，并重新发布。
 - **校验内容要用 git blob id，不要 hash 工作树文件**。同一份内容在不同机器上会因为 CRLF（`core.autocrlf` / `.gitattributes`）而字节不同，直接 hash 检出文件会误判「被改写」。正确做法：`git rev-parse HEAD:<path>` 与 `git hash-object --no-filters -- <file>` 比对。今晚就因此误报过一次「内容不一致」，实际逐字节相同。
 - **包名与 npm 既有包冲突**：`dsh-agent-bus` 在 npm 上属 MistyBridge（MIT）。本包只在本地以 `link:` 安装、从未发布；若要对外分发，必须先换成唯一名字（或退回 `@local/agent-bus` 这类明显本地化前缀）。
 - GitHub REST 限额 60 次/小时，本机已被打满过；`raw.githubusercontent.com` 有 CDN 缓存，推送后数十秒仍可能返回旧文件。**复算用 git 通道**最稳。
