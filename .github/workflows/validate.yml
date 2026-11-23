@@ -24,6 +24,11 @@ jobs:
           node-version: 22
       - name: Validate package, patches and index
         run: node scripts/validate.mjs
+      - name: Validate per-session claims and report scope overlaps
+        # claims/<marker>.json is one file per session, so concurrent sessions
+        # merge without conflicts. This only fails on structural errors; an
+        # expired lease or an overlapping scope is printed, never fatal.
+        run: node scripts/board.mjs --check
 
   pinned-commits:
     runs-on: ubuntu-latest

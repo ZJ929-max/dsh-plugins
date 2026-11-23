@@ -7,7 +7,7 @@ name: repin
 #
 # Manual run: Actions → repin → Run workflow. `check` never writes; `commit`
 # rewrites the index and pushes one commit.
-# Scheduled run is the auto-commit path (daily, low-traffic hour).
+# Scheduled run is the auto-commit path (every 30 minutes).
 
 on:
   workflow_dispatch:
@@ -41,9 +41,10 @@ jobs:
       - name: Preview what would change
         run: node scripts/repin.mjs --dry-run
 
-      - name: Commit and push
+      - name: Commit and push (rebase and retry on concurrent pushes)
         if: ${{ (github.event.inputs.mode || 'commit') == 'commit' }}
         run: |
+          set -euo pipefail
           node scripts/repin.mjs
           if git diff --quiet -- index.json patches; then
             echo "repin: index already tracks the plugin branches"
@@ -51,8 +52,34 @@ jobs:
           fi
           # Never publish an index this repository cannot validate.
           node scripts/validate.mjs
+          node scripts/board.mjs --check
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.json patches
           git commit -m "repin: index tracks plugin main ($(date -u +%Y-%m-%d)) [skip ci]"
-          git push
+          # Other sessions push to this repository too. A rejected push is normal
+          # traffic, not a failure: rebase on the new head, recompute the pins on
+          # top of it, and try again. No lock, no freeze, no lost commit.
+          for attempt in 1 2 3 4; do
+            if git push origin HEAD:main; then
+              echo "repin: pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "repin: push rejected (attempt ${attempt}); rebasing onto origin/main"
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              echo "repin: rebase conflict on shared files; a human needs to merge index.json/patches" >&2
+              exit 1
+            fi
+            node scripts/repin.mjs
+            node scripts/validate.mjs
+            node scripts/board.mjs --check
+            if ! git diff --quiet -- index.json patches; then
+              git add index.json patches
+              git commit --amend --no-edit
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "repin: push still failing after 4 attempts" >&2
+          exit 1

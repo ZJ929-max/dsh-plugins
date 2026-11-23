@@ -1,3 +1,5 @@
+> **2026-11-23 现状校准**：成员、pin 与角色一律以 `LEDGER.md` 为准。本文 §1「本轮结论」与 §2 目录树写的是第一轮骨架（tool-fold 独立成包、索引 5 条），**已过期**：折叠并入了 `dsh-tokeneconomizer` 0.3.0，`patch 10-tool-fold.yml` 已移除，现为 4 依赖 / 4 patch / 索引 4 条。§3 起的 index schema 与两轨制仍然有效。并发模型见 `LEDGER.md` §五与 `claims/README.md`。
+>
 > **2026-11-21 变更**：agent-bus 已移出元包与索引（上游 MistyBridge/dsh-agent-bus 定位重合，见 README）。**它现在只是本机保留的内部协调通道，不对外分发、不在任何安装说明里。**下文涉及 agent-bus 的段落保留为历史记录，不再代表成员身份或安装步骤。
 
 # DESIGN-NOTES —— 元包 + 索引（第一轮骨架）
