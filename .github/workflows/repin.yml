@@ -18,7 +18,9 @@ on:
         options: [check, commit]
         default: check
   schedule:
-    - cron: '37 3 * * *'
+    # Every 30 minutes: the index pins a 40-hex commit, so without this it lags
+    # each plugin's main by up to a day. GitHub may delay scheduled runs under load.
+    - cron: '*/30 * * * *'
 
 permissions:
   contents: write
