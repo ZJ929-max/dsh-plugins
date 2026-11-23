@@ -1,9 +1,0 @@
-# dsh-lazy-tools 0.0.1-re1 — 把低频工具折叠成「名字 + 一句话」。（原名 dsh-tool-fold）
-# 逐行照抄自插件仓库的 cordis.patch.yml：
-# https://github.com/ZJ929-max/dsh-tool-fold/blob/149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9/cordis.patch.yml
-# id / name 必须与插件自己的 patch 完全一致，否则元包与单插件的互斥契约失效。
-- insert:
-    - id: lazy-tools
-      name: dsh-lazy-tools
-      config:
-        enabled: true

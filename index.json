@@ -10,32 +10,6 @@
   },
   "plugins": [
     {
-      "name": "dsh-lazy-tools",
-      "title": {
-        "en": "Tool Fold",
-        "zh": "低频工具折叠"
-      },
-      "description": {
-        "en": "Fold low-frequency tools into a name plus one line and load them back with tool_fold, per session and with measured usage.",
-        "zh": "把低频工具折叠成「名字 + 一句话」，需要时用 tool_fold 取回；按会话隔离、带真实计量、只用 deny 过滤。"
-      },
-      "homepage": "https://github.com/ZJ929-max/dsh-tool-fold#readme",
-      "repository": {
-        "url": "https://github.com/ZJ929-max/dsh-tool-fold"
-      },
-      "versions": [
-        {
-          "version": "0.0.1-re1",
-          "publishTimestamp": 1795442309,
-          "source": {
-            "type": "git",
-            "url": "https://github.com/ZJ929-max/dsh-tool-fold",
-            "commit": "149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9"
-          }
-        }
-      ]
-    },
-    {
       "name": "dsh-bili-peek",
       "title": {
         "en": "Bilibili Peek",
@@ -88,6 +62,32 @@
       ]
     },
     {
+      "name": "dsh-agent-bus",
+      "title": {
+        "en": "Agent Bus",
+        "zh": "Agent 总线"
+      },
+      "description": {
+        "en": "Cross-session messaging inside one DSH profile: post with optional wake:false, inbox, and peer status. Rate-limited anti-ping-pong; a paused send returns ok:false.",
+        "zh": "同一 profile 内的跨会话消息：投递（可只投递不唤醒）、收件箱、对等会话状态；限速防对喷，被限速时返回 ok:false。"
+      },
+      "homepage": "https://github.com/ZJ929-max/dsh-agent-bus#readme",
+      "repository": {
+        "url": "https://github.com/ZJ929-max/dsh-agent-bus"
+      },
+      "versions": [
+        {
+          "version": "1.3.0",
+          "publishTimestamp": 1795442389,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/ZJ929-max/dsh-agent-bus",
+            "commit": "55d2e4636ee0ff3489d19b2ae3832cca7c9a80f0"
+          }
+        }
+      ]
+    },
+    {
       "name": "dsh-tokeneconomizer",
       "title": {
         "en": "TokenEconomizer for DSH",
@@ -103,12 +103,12 @@
       },
       "versions": [
         {
-          "version": "0.2.0",
-          "publishTimestamp": 1795150133,
+          "version": "0.3.0",
+          "publishTimestamp": 1795442938,
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/tokeneconomizer-dsh",
-            "commit": "c338fb440c3d5c95292b85d74993f8f12c6b5944"
+            "commit": "84e274c8f1a27f2c3fd33d4bbd898e08997dd42e"
           }
         }
       ]

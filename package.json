@@ -22,18 +22,18 @@
   "dsh": {
     "bundle": {
       "patch": [
-        "./patches/10-lazy-tools.yml",
         "./patches/20-bili-peek.yml",
         "./patches/30-view-image.yml",
+        "./patches/40-agent-bus.yml",
         "./patches/50-tokeneconomizer.yml"
       ]
     }
   },
   "dependencies": {
-    "dsh-lazy-tools": "github:ZJ929-max/dsh-tool-fold",
     "dsh-bili-peek": "github:ZJ929-max/dsh-bili-peek",
     "dsh-view-image": "github:ZJ929-max/dsh-view-image",
-    "dsh-tokeneconomizer": "github:ZJ929-max/tokeneconomizer-dsh"
+    "dsh-tokeneconomizer": "github:ZJ929-max/tokeneconomizer-dsh",
+    "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus"
   },
   "engines": {
     "node": ">=22"

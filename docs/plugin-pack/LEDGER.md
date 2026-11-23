@@ -9,15 +9,13 @@
 
 | 对象 | 索引 pin | 仓库 HEAD | 状态 | 证据 | 更新人 | 更新时间 |
 |---|---|---|---|---|---|---|
-| **dsh-lazy-tools 0.0.1-re1**（原名 dsh-tool-fold） | `149d103a2e08…` | `149d103a2e08…` | ✅ 一致（改名 + 版本归零 + pin 由 repin 自动跟随） | <https://github.com/ZJ929-max/dsh-tool-fold/commit/149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9> | lead | 2026-11-23T14:03Z |（重钉） | 2026-11-21T01:02Z |
 | dsh-bili-peek 0.1.0 | `7f3850eae701…` | `7f3850eae701…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-bili-peek/commit/7f3850ea> | owner | 2026-11-20T08:22Z |
 | dsh-view-image 0.1.0 | `5d220e6c…` | `5d220e6c…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-view-image/commit/5d220e6c> | owner | 2026-11-20T08:22Z |
-| dsh-tokeneconomizer 0.2.0 | `c338fb44…` | `c338fb44…` | ✅ 一致 | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/c338fb44> | owner | 2026-11-20T08:22Z |
-| ~~dsh-agent-bus~~ | 索引已删 | `5c4b2da` | ⚪ **移出整合包**（内部保留） | <https://github.com/ZJ929-max/dsh-agent-bus/commit/5c4b2da> | 协调员（00:49Z 裁定）/ agent-bus（提交） | 2026-11-21T00:49Z |
+| **dsh-tokeneconomizer 0.3.0** | `84e274c8…` | `84e274c8…` | ✅ 一致（并入折叠插件） | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/84e274c8f1a27f2c3fd33d4bbd898e08997dd42e> | lead | 2026-11-23T14:10Z |
+| dsh-agent-bus **1.3.0** | `55d2e4636ee0…` | `55d2e4636ee0…` | ✅ 重新纳入（人类裁决） | <https://github.com/ZJ929-max/dsh-agent-bus/commit/55d2e4636ee0ff3489d19b2ae3832cca7c9a80f0> | lead（按人类原话恢复） | 2026-11-23T14:07Z |
 | 元包 dsh-plugins | — | `71fa5cae…` | ✅ 在线（本次复算时的 main；发布提交会再前进一位） | <https://github.com/ZJ929-max/dsh-plugins/commit/71fa5cae> | de54 | 2026-11-21T01:22Z |
 
-**当前状态（2026-11-21T01:03Z 复算，git 通道）：索引 4 个成员全部 MATCH。`dsh-tool-fold` 已重钉到 0.2.1 `8527fd0f`（功能性修复：先应用新限制再撤旧限制）。**
-agent-bus 已按协调员裁定移出索引（元包 `23d2fa0`），本机实例保留、不再对外分发；文档口径在 `15ef0ec` 里改成「内部保留、无安装路径」。
+**当前状态（2026-11-23T14:10Z）：索引 4 个成员。`dsh-tokeneconomizer` 0.3.0 @ `84e274c8`（已并入折叠插件，独立 `dsh-lazy-tools` 暂停更新并从索引移除）；`dsh-agent-bus` 1.3.0 @ `55d2e463` 已按人类裁决恢复。pin 由 `scripts/repin.mjs` 自动跟随上游 main。**
 
 ## 二、决策账
 

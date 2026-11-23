@@ -2,7 +2,7 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 四个插件仓库与元包仓库已上线（ZJ929-max）。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。agent-bus 已移出（原因见下）。
+> 四个插件仓库与元包仓库已上线（ZJ929-max）。工具折叠已并入 `dsh-tokeneconomizer`，独立仓库 `dsh-lazy-tools` 暂停更新。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。agent-bus 已重新纳入（原因见下）。
 
 ## 它是什么，不是什么
 
@@ -37,13 +37,13 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 > **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
 
-装完应出现四个工具面：`tool_fold`（插件 `dsh-lazy-tools`）、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`tokeneconomizer`。
+装完应出现四个工具面：`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox` / `agent_bus_status`、`tokeneconomizer`（折叠已并入它：`{action:"fold"}` 看清单、`{action:"unfold", name:"…"}` 取回）。
 
 ## 互斥规则（必读）
 
-元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`lazy-tools` / `bili-peek` / `view-image` / `tokeneconomizer`。
+元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`bili-peek` / `view-image` / `agent-bus` / `tokeneconomizer`。
 
-安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `lazy-tools` / `bili-peek` / `view-image` / `tokeneconomizer` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
+安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
 
 **不要把元包和任何单插件同时安装或启用。** 同一个 id 被两个 bundle insert 时，DSH 不会报错、也不会去重；loader 以 id 为键，后应用的那层生效——结果是静默覆盖，看起来像「插件没装上」。
 
@@ -73,18 +73,22 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 - `raw.githubusercontent.com` 有缓存延迟；刚更新的索引可能几分钟后才可见，急用可换 GitHub Pages。
 - 索引 URL 在仓库创建前不存在；上线前请勿把这条 URL 配进 profile。
 
-## 为什么没有 agent-bus
+## 为什么 agent-bus 又回来了
 
-上游已有成熟实现：[MistyBridge/dsh-agent-bus](https://github.com/MistyBridge/dsh-agent-bus)（npm `dsh-agent-bus`，MIT，2026-08 起，包含 note / task / flow / panel / ledger）。我们在 2026-11-20 也写过一个同功能插件，但核心投递与其重合；按「重合就不重复造」的原则，本整合包**不再包含 agent-bus**，也不再占用该 npm 包名。需要多会话编排请直接用上游。
+2026-11-21 曾以「上游已有成熟实现、重合就不重复造」为由把 agent-bus 移出，但当时那条依据**未获人类确认**。2026-11-23 复核后推翻：npm 上的 `dsh-agent-bus` 只有 0.1.0 与 0.1.1（均发布于 2026-08-20，此后停更），其声明的仓库 `github.com/MistyBridge/dsh-agent-bus` 现在返回 **404**；而本仓 `ZJ929-max/dsh-agent-bus` 仍在更新（已到 1.3.0）。
+
+结论：这不是「重合」，是**先行者停更且源码不可达、后行者还在跑**。按人类裁决重新纳入。
+
+包名仍被上游占用（npm `dsh-agent-bus` 属 MistyBridge）→ 本包**不发布 npm**，索引只按 git commit 安装；若将来要发布，必须先改成唯一名字。
 
 ## 版本固定
 
 | 插件 | 版本 | 仓库 | commit |
 |---|---|---|---|
-| dsh-lazy-tools（原名 dsh-tool-fold） | 0.0.1-re1 | ZJ929-max/dsh-tool-fold | `149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
-| dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（索引固定；元包跟 main 最新） |
+| dsh-agent-bus | 1.3.0 | ZJ929-max/dsh-agent-bus | `55d2e4636ee0ff3489d19b2ae3832cca7c9a80f0` |
+| dsh-tokeneconomizer | 0.3.0 | ZJ929-max/tokeneconomizer-dsh | `84e274c8f1a27f2c3fd33d4bbd898e08997dd42e`（索引固定；元包跟 main 最新） |
 
 升级分两条路：**元包**的依赖写 `github:ZJ929-max/<repo>`（跟 main 最新），装一次就是当时最新；**索引**继续按 40 位 commit 固定，升级时改 `index.json` 的 `versions[].source.commit`。元包不追求可复现，索引追求可复现。
 
@@ -121,4 +125,4 @@ docs/plugin-pack/     协调账本（LEDGER.md；索引 pin 与仓库 HEAD 的 S
 
 - 端到端安装已在一次性 profile 实测通过（见 `DESIGN-NOTES.md` §8.5）：索引单装零配置；元包需 `blockExoticSubdeps: false` 前置。
 - `view-image` 的 patch 里 `codecDir` 是插件作者机器上的默认目录；其他机器可在 profile patch 覆盖，或把解码器放进 `PATH`。
-- `dsh-tokeneconomizer`（随元包，跟 main）：**工具裁剪只出建议、不自动删工具**；事实注入依赖仓库身份，换远端/换路径会重新学习。
+- `dsh-tokeneconomizer`（随元包，跟 main）：**工具裁剪只出建议、不自动删工具**；折叠（并入自 `dsh-lazy-tools`）在会话边界生效、被用过一次即永久免折；事实注入依赖仓库身份，换远端/换路径会重新学习。
