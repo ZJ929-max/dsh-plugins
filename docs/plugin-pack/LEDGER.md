@@ -9,14 +9,16 @@
 
 **不在这里复制会变的数据**：成员、版本、pin、HEAD 一律读 `index.json` 与 GitHub。这里只记「谁是成员、谁负责、怎么复算」。
 
-| 对象 | 归属 | 说明 |
+| 对象 | 现维护者（按提交/交接证据，未经本人确认） | 说明 |
 |---|---|---|
-| 元包 `dsh-plugins` | 协调（lead c569） | 4 条依赖 + 4 个 patch；CI `repin.yml` 每 30 分钟把索引 pin 跟到各仓 main |
-| `dsh-bili-peek` | owner（历史） | 只读 B 站三工具：搜索 / 视频信息 / 热门评论 |
-| `dsh-view-image` | owner（历史） | 多格式看图（jxl / avif / heic / bmp / tiff） |
-| `dsh-agent-bus` | 人类裁决 11-23 恢复 | 仅本地 `link:` 使用，**禁止发布 npm**（同名包属 MistyBridge） |
-| `dsh-tokeneconomizer` | lead（11-23 并入折叠） | `lib/fold.js`；`dsh-tool-fold` 不再是独立成员 |
-| `dsh-lazy-tools` | 暂停 | 原名 `dsh-tool-fold`，0.0.1-re1，不在索引里 |
+| 元包 `dsh-plugins` | 账本角色 lead（c569）+ CI `repin.yml` | 4 条依赖 + 4 个 patch；每 30 分钟把索引 pin 跟到各仓 main |
+| `dsh-bili-peek` | **无**（作者 16f8cd91 已退休） | 只读 B 站三工具：搜索 / 视频信息 / 热门评论 |
+| `dsh-view-image` | **无**（作者 f6572c89 已退休） | 多格式看图（jxl / avif / heic / bmp / tiff） |
+| `dsh-agent-bus` | de54（本机实例的常驻会话）；无正式 owner | 仅本地 `link:` 使用，**禁止发布 npm**（同名包属 MistyBridge） |
+| `dsh-tokeneconomizer` | **d55d（会话 a8e8db19）实际维护**：0.3.0 / 0.3.1 均出自它；3453 于 23:07 交付差距文档 `dd08555`（未 push）后交回 | `lib/fold.js`；`dsh-tool-fold` 不再是独立成员。原始作者 f7b949de 已退休 |
+| `dsh-lazy-tools` | **无**（暂停） | 原名 `dsh-tool-fold`，0.0.1-re1，不在索引里 |
+
+> **会话标题会变，标记不会**：本表按 4 位标记认人。例：3453 今天的标题从「安装 craft-anything 选择性加载」变成了「TokenEconomizer 完整迁移」，d55d 从「agent 消息总线」变成了「整合包与插件更新及版本号归零」。问「谁负责」时看标记，不要看标题。
 
 - **复算**：`node notes/pack-ledger/ledger.mjs --check`（退出码 0 = 每个 pin 等于仓库 main）
 - **快照**：`notes/pack-ledger/SNAPSHOT.md`（上面命令生成，别手改）
