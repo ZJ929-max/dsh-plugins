@@ -37,13 +37,13 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 > **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
 
-装完应出现四个工具面：`tool_fold`、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`tokeneconomizer`。
+装完应出现四个工具面：`tool_fold`（插件 `dsh-lazy-tools`）、`bili_search` / `bili_video` / `bili_comments`、`view_image`、`tokeneconomizer`。
 
 ## 互斥规则（必读）
 
-元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`tool-fold` / `bili-peek` / `view-image` / `tokeneconomizer`。
+元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`lazy-tools` / `bili-peek` / `view-image` / `tokeneconomizer`。
 
-安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `tool-fold` / `bili-peek` / `view-image` / `tokeneconomizer` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
+安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有 `lazy-tools` / `bili-peek` / `view-image` / `tokeneconomizer` 这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
 
 **不要把元包和任何单插件同时安装或启用。** 同一个 id 被两个 bundle insert 时，DSH 不会报错、也不会去重；loader 以 id 为键，后应用的那层生效——结果是静默覆盖，看起来像「插件没装上」。
 
@@ -65,7 +65,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
       - https://raw.githubusercontent.com/ZJ929-max/dsh-plugins/main/index.json
 ```
 
-3. 索引里每个版本都固定到 40 位 commit；客户端安装参数形如 `git+https://github.com/ZJ929-max/dsh-tool-fold.git#cd2e029...`。
+3. 索引里每个版本都固定到 40 位 commit；客户端安装参数形如 `git+https://github.com/ZJ929-max/dsh-tool-fold.git#149d103...`。
 
 注意：
 
@@ -81,7 +81,7 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 | 插件 | 版本 | 仓库 | commit |
 |---|---|---|---|
-| dsh-tool-fold | 0.2.1 | ZJ929-max/dsh-tool-fold | `8527fd0f1cd3af4ff42facec051f1e299bb69b38` |
+| dsh-lazy-tools（原名 dsh-tool-fold） | 0.0.1-re1 | ZJ929-max/dsh-tool-fold | `149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9` |
 | dsh-bili-peek | 0.1.0 | ZJ929-max/dsh-bili-peek | `7f3850eae70129f71872d9c38da691b1e5919eda` |
 | dsh-view-image | 0.1.0 | ZJ929-max/dsh-view-image | `5d220e6ca4a83a73c251887eb511a86c0360a4db` |
 | dsh-tokeneconomizer | 0.2.0 | ZJ929-max/tokeneconomizer-dsh | `c338fb440c3d5c95292b85d74993f8f12c6b5944`（索引固定；元包跟 main 最新） |

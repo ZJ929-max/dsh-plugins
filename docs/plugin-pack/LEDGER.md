@@ -9,7 +9,7 @@
 
 | 对象 | 索引 pin | 仓库 HEAD | 状态 | 证据 | 更新人 | 更新时间 |
 |---|---|---|---|---|---|---|
-| dsh-tool-fold **0.2.1** | `8527fd0f1cd3…` | `8527fd0f1cd3…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-tool-fold/commit/8527fd0f1cd3af4ff42facec051f1e299bb69b38> | lead（重钉） | 2026-11-21T01:02Z |
+| **dsh-lazy-tools 0.0.1-re1**（原名 dsh-tool-fold） | `149d103a2e08…` | `149d103a2e08…` | ✅ 一致（改名 + 版本归零 + pin 由 repin 自动跟随） | <https://github.com/ZJ929-max/dsh-tool-fold/commit/149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9> | lead | 2026-11-23T14:03Z |（重钉） | 2026-11-21T01:02Z |
 | dsh-bili-peek 0.1.0 | `7f3850eae701…` | `7f3850eae701…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-bili-peek/commit/7f3850ea> | owner | 2026-11-20T08:22Z |
 | dsh-view-image 0.1.0 | `5d220e6c…` | `5d220e6c…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-view-image/commit/5d220e6c> | owner | 2026-11-20T08:22Z |
 | dsh-tokeneconomizer 0.2.0 | `c338fb44…` | `c338fb44…` | ✅ 一致 | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/c338fb44> | owner | 2026-11-20T08:22Z |

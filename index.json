@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "dsh-tool-fold",
+      "name": "dsh-lazy-tools",
       "title": {
         "en": "Tool Fold",
         "zh": "低频工具折叠"
@@ -25,12 +25,12 @@
       },
       "versions": [
         {
-          "version": "0.2.1",
-          "publishTimestamp": 1795222380,
+          "version": "0.0.1-re1",
+          "publishTimestamp": 1795442309,
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-tool-fold",
-            "commit": "8527fd0f1cd3af4ff42facec051f1e299bb69b38"
+            "commit": "149d103a2e089ae830e9d2b5b4ea2e89ea61f5e9"
           }
         }
       ]
