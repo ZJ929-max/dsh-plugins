@@ -103,12 +103,12 @@
       },
       "versions": [
         {
-          "version": "0.3.1",
+          "version": "0.3.2",
           "publishTimestamp": 1795442938,
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/tokeneconomizer-dsh",
-            "commit": "9303eb64a6b6163f7e3285a18b7a021914af0341"
+            "commit": "c1896076003dc941f78f281a328d11e7136bed6f"
           }
         }
       ]
