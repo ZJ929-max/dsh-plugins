@@ -65,7 +65,7 @@
 | 发布（pin 重钉） | **CI `repin.yml`** | — | 🟢 已自动化 | 每 30 分钟自动重钉；被并发推送顶掉时自己 rebase 重试；人工只做成员增删 |
 | 网络类任务（仓库 About、e2e 安装） | 未认领 | — | ⚪ 空 | 网络可用时任一会话认领；API 可写 About，不必开网页 |
 | 上游监控（MistyBridge/dsh-agent-bus 0.2.x） | 未认领 | — | ⚪ 空 | 低峰检查，不出不烧 token |
-| 工作区清理（他人目录） | **lead（c569）** | 2026-11-24T15:00Z | 🟡 进行中（第一轮已做） | 见 `docs/WORKSPACE-LAYOUT.md`：文档/草稿已归位，他人项目目录仍待负责人点头 |
+| 工作区清理（他人目录） | **lead（c569）** | 2026-11-24T15:00Z | 🟢 第一轮完成 | 根目录已从 30 项降到 15 项；余项（`tools/` 空目录、他人目录删除）见 `CLEANUP.md` §2/§3，需负责人点头 |
 
 > 本表是唯一角色表。`docs/plugin-pack/COORDINATION.md` 是 2026-11-20 的历史契约（含已退休的会话 id），只作追溯，不再承担调度。
 
@@ -88,6 +88,8 @@
 | 可见 | `node scripts/board.mjs` 列出 active/过期/scope 重叠；CI 每次 push 都跑 `--check` | 结构错误才失败；过期与重叠只警告 |
 | 写回 | 共享文件被并发改动时 `git pull --rebase` + 重算 + 重试 | repin 自动重试 4 次；冲突则中止并点名文件 |
 
+两套声明用同一格式：`plugin-pack/claims/` 管仓库内路径，工作区根 `claims/` 管工作区路径；`node scripts/board.mjs` 一次看两边，`node plugin-pack/scripts/board.mjs` 只看仓库（CI 跑这个）。本轮已给 9 个会话各投一条 `wake:false` 说明，不花它们任何一轮模型。
+
 **为什么不是锁**：锁只能防同时写，防不了「两个人各写一半然后都以为对方会合」。分片文件 + 自动重试让并发变成常态，而不是异常。
 
 ## 六、已知限制（写在明处，免得当成没问题）
@@ -97,4 +99,6 @@
 - **包名与 npm 既有包冲突**：`dsh-agent-bus` 在 npm 上属 MistyBridge（MIT）。本包只在本地以 `link:` 安装、从未发布；若要对外分发，必须先换成唯一名字。
 - GitHub REST 限额 60 次/小时；`raw.githubusercontent.com` 有 CDN 缓存。**复算用 `commits/main` API 或 git 通道**，不要用 raw 判断刚推送的状态。
 - 所有 commit 的 git 作者都是同一个账号，所以账本能证明「变了什么、何时变」，**不能**证明「哪个会话推的」。
+- **运行时与 pin 不是同一份**（11-23 实测）：profile 的 `node_modules` 里 `dsh-bili-peek` / `dsh-view-image` / `dsh-agent-bus` / `dsh-tokeneconomizer` 都是指向本地目录的符号链接（工作区三个目录 + `C:\dev\agent-bus`、`C:\dev\tokeneconomizer-dsh`）；元包 patch 只按 id 插入，所以本机跑的是本地目录。索引钉的 commit 描述的是「可复现的发布物」，不是「正在跑的代码」。要不要切到真正安装的 pinned 副本，是一个独立决定。
+- **`C:\dev\agent-bus\.git` 不完整**（没有 `HEAD`，`git log` 报 not a repository），本地这份无法用 git 自证版本，只知 `package.json` 是 1.3.0。`C:\dev\tokeneconomizer-dsh` 正常。
 - `C:\dev\ssh\te2` 这把 key 所有会话都能用；按人类指示**不改**。它既是便利也是单点风险。
