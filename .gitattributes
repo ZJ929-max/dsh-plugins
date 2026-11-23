@@ -1,0 +1,6 @@
+# Files whose exact bytes are compared across copies must not go through
+# CRLF conversion: notes/pack-ledger/sync-ledger.mjs compares the workspace
+# LEDGER.md with this repository's copy byte for byte.
+docs/plugin-pack/LEDGER.md text eol=lf
+claims/*.json text eol=lf
+scripts/*.mjs text eol=lf
