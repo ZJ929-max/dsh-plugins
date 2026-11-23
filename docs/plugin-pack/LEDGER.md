@@ -1,21 +1,26 @@
 # 整合包账本（LEDGER）
 
-> **维护者**：lead（标记 c569），2026-11-23 认领，租约至 **2026-11-24T15:00Z**。上一任 de54 的交班材料：`HANDOFF-de54.md`（根目录）与 `~/.dsh/relay/SELF-2026-11-23-default-workspace.md`。
+> **维护者**：lead（标记 c569），2026-11-23 认领，租约至 **2026-11-24T15:00Z**。上一任 de54 的交班材料：`archive/HANDOFF-de54.md` 与 `~/.dsh/relay/SELF-2026-11-23-default-workspace.md`。
 > 本文件是**协调用的单一事实来源之一**：与 `index.json` 并列为 SSOT。两者与 GitHub HEAD 不一致时，**以 GitHub HEAD 复算为准**，并立即报差异。
-> 复算：`notes/pack-ledger/ledger.mjs --check`（退出码 0 = 每个 pin 都等于仓库 main）。最近一次人工复核：**2026-11-23T15:00Z**，GitHub `commits/main` 与本地 `git log` 双通道——4 个 pin 全部等于各自 main，元包 main = `15db8e7f`。
+> 复算：`node notes/pack-ledger/ledger.mjs --check`（退出码 0 = 每个 pin 都等于仓库 main）。最近一次人工复核：**2026-11-23T14:55Z**（GitHub `commits/main` + 本地 `git log`）：4/4 一致。**具体 SHA 一律不抄进本文件**——抄一次就会在下一个 30 分钟里过期一次。
 > 发布位置：元包仓库 `docs/plugin-pack/LEDGER.md`。本机根目录 `docs/plugin-pack/LEDGER.md` 与之**内容相同**，由 `notes/pack-ledger/sync-ledger.mjs` 单向同步（根副本 → 仓库快照）；不要手改仓库那份。
 
 ## 一、对象现状
 
-| 对象 | 索引 pin | 仓库 HEAD | 状态 | 证据 | 更新人 | 更新时间 |
-|---|---|---|---|---|---|---|
-| dsh-bili-peek 0.1.0 | `7f3850eae701…` | `7f3850eae701…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-bili-peek/commit/7f3850eae70129f71872d9c38da691b1e5919eda> | owner | 2026-11-20T08:22Z |
-| dsh-view-image 0.1.0 | `5d220e6c…` | `5d220e6c…` | ✅ 一致 | <https://github.com/ZJ929-max/dsh-view-image/commit/5d220e6ca4a83a73c251887eb511a86c0360a4db> | owner | 2026-11-20T08:22Z |
-| dsh-tokeneconomizer **0.3.0**（已并入折叠） | `84e274c8…` | `84e274c8…` | ✅ 一致 | <https://github.com/ZJ929-max/tokeneconomizer-dsh/commit/84e274c8f1a27f2c3fd33d4bbd898e08997dd42e> | lead（复核） | 2026-11-23T15:00Z |
-| dsh-agent-bus **1.3.0** | `55d2e463…` | `55d2e463…` | ✅ 重新纳入（人类裁决） | <https://github.com/ZJ929-max/dsh-agent-bus/commit/55d2e4636ee0ff3489d19b2ae3832cca7c9a80f0> | lead（按人类原话恢复） | 2026-11-23T15:00Z |
-| 元包 dsh-plugins | — | `15db8e7f…` | ✅ 在线 | <https://github.com/ZJ929-max/dsh-plugins/commit/15db8e7f27c3731987f97427f7970c209e4cd1da> | lead（复核） | 2026-11-23T15:00Z |
+**不在这里复制会变的数据**：成员、版本、pin、HEAD 一律读 `index.json` 与 GitHub。这里只记「谁是成员、谁负责、怎么复算」。
 
-**当前状态（2026-11-23T15:00Z，实测）**：索引 4 个成员；元包 4 条依赖 + 4 个 patch（20/30/40/50）。`dsh-tool-fold` 已并入 `dsh-tokeneconomizer` 0.3.0（`lib/fold.js`），不再单独成包；独立仓 `dsh-lazy-tools` 0.0.1-re1 @ `8800ee5` 暂停更新。pin 由 `scripts/repin.mjs` 每 30 分钟跟随上游 main。
+| 对象 | 归属 | 说明 |
+|---|---|---|
+| 元包 `dsh-plugins` | 协调（lead c569） | 4 条依赖 + 4 个 patch；CI `repin.yml` 每 30 分钟把索引 pin 跟到各仓 main |
+| `dsh-bili-peek` | owner（历史） | 只读 B 站三工具：搜索 / 视频信息 / 热门评论 |
+| `dsh-view-image` | owner（历史） | 多格式看图（jxl / avif / heic / bmp / tiff） |
+| `dsh-agent-bus` | 人类裁决 11-23 恢复 | 仅本地 `link:` 使用，**禁止发布 npm**（同名包属 MistyBridge） |
+| `dsh-tokeneconomizer` | lead（11-23 并入折叠） | `lib/fold.js`；`dsh-tool-fold` 不再是独立成员 |
+| `dsh-lazy-tools` | 暂停 | 原名 `dsh-tool-fold`，0.0.1-re1，不在索引里 |
+
+- **复算**：`node notes/pack-ledger/ledger.mjs --check`（退出码 0 = 每个 pin 等于仓库 main）
+- **快照**：`notes/pack-ledger/SNAPSHOT.md`（上面命令生成，别手改）
+- **读之前**：先跑命令看退出码。不要相信任何抄下来的 SHA——包括这份文件历史上的版本。
 
 ## 二、决策账
 
