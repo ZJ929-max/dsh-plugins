@@ -5,10 +5,9 @@
     "docs/plugin-pack/LEDGER.md",
     "claims/",
     "scripts/",
-    ".github/workflows/",
-    "notes/pack-ledger/"
+    ".github/workflows/"
   ],
-  "task": "认领协调角色：校正账本、加入并发声明与推送重试",
+  "task": "维持账本、claims 与 board；成员增删需人类裁决",
   "since": "2026-11-23T15:00:00Z",
   "leaseUntil": "2026-11-24T15:00:00Z",
   "state": "active"
