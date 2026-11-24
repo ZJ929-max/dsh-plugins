@@ -59,12 +59,12 @@
 ## 六、已知边界
 
 - **运行时 ≠ pin**：profile 的 `node_modules` 是指向本地目录的 link，跑的不是索引钉的 commit。
-- `C:\dev\agent-bus` **没有可用 `.git`**：本地改动没有版本历史，改前先整仓备份。
+- `C:\dev\agent-bus`、`bili-peek/`、`view-image/` 的 **`.git` 都不完整（没有 `HEAD`）**：本地改动没有版本历史，改前先整仓备份。
 - npm 上 `dsh-agent-bus` 属 MistyBridge，本包**不得发布**。
 - 校验内容用 **git blob id**（`git hash-object --no-filters`），不要 hash 工作树文件（CRLF 会误判）。
 - GitHub API 限额 60 次/小时；复算用 `commits/main` 或 git 通道，不用 raw 判断刚推送的状态。
 
 ## 七、归档
 
-- 历史契约、复盘、巡检、旧版本文档：`archive/plugin-pack-history/`（含本文件 2026-11-23 全文、`COORDINATION.md`、`STATUS.md`、`INSPECTION-2026-11-23.md`、`WORKSPACE-LAYOUT.md`、`REVIEW.md`、`SELF-LINKAGE.md`）。
+- 历史契约、复盘、巡检、旧版本：已打包到 `C:\dev\backups\workspace-history-2026-11-24.zip`（含本文件 2026-11-23 全文、`COORDINATION.md`、`STATUS.md`、`INSPECTION-2026-11-23.md`、`WORKSPACE-LAYOUT.md`、`REVIEW.md`、`SELF-LINKAGE.md`、3 份 HANDOFF、旧 `bili-peek`/`view-image` 快照、`_ofm-scan`/`ctx-audit` 脚本）。`archive/` 现在是空的。
 - **未结的产品问题只有一处**：`docs/BACKLOG.md`（一条一行，做完即删）；不要再写「全面评审」长文——要写就写进 backlog 或 claims。
