@@ -39,6 +39,7 @@
 4. **agent-bus 在整合包内**（patch 40 / 依赖 / 索引），元包与索引统一钉 40 位 commit（两轨设计见 `plugin-pack/DESIGN.md`）。
 5. **并发靠分工，不靠加锁**：`claims/<标记>.json` 一人一文件 + 自动重试；不冻结、不排队。
 6. **身份三层**（名字 / 标题 / 标记）是唯一口径；不再用职衔承担调度。
+7. **折叠回到上游口径**（0.3.3，11-25）：默认 `foldMode: propose`，只写 `fold-proposal.json`、不 `tools.restrict`；`reserved: ['tokeneconomizer']` 结构性豁免；`foldAfterSessions` 3→5；`scripts/fold-restore.mjs` 提供不依赖工具的 restore。
 
 ## 四、约定（能执行才有意义）
 
