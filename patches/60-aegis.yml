@@ -1,5 +1,5 @@
 # dsh-aegis 0.1.0 — 加载门 + Native Cell + 运行时动态授权。
-# https://github.com/ZJ929-max/dsh-aegis/blob/b0296214e438e704f31d2c3d9dce3d22c3a8b3af/cordis.patch.yml
+# https://github.com/ZJ929-max/dsh-aegis/blob/main/cordis.patch.yml
 - insert:
     - id: aegis-bootstrap
       name: dsh-aegis

@@ -36,8 +36,8 @@
     "dsh-view-image": "github:ZJ929-max/dsh-view-image",
     "dsh-tokeneconomizer": "github:ZJ929-max/tokeneconomizer-dsh",
     "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus",
-    "dsh-approval-reason-relay": "github:ZJ929-max/dsh-approval-reason-relay#2f8665cbc1395fe8e7a31732bcde4e2be94fecf8",
-    "dsh-aegis": "github:ZJ929-max/dsh-aegis#b0296214e438e704f31d2c3d9dce3d22c3a8b3af"
+    "dsh-approval-reason-relay": "github:ZJ929-max/dsh-approval-reason-relay",
+    "dsh-aegis": "github:ZJ929-max/dsh-aegis"
   },
   "engines": {
     "node": ">=22"
