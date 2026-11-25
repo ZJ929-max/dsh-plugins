@@ -1,0 +1,5 @@
+# dsh-approval-reason-relay 0.1.0 — 审批被拒时把审批方理由回传给模型。
+# https://github.com/ZJ929-max/dsh-approval-reason-relay/blob/2f8665cbc1395fe8e7a31732bcde4e2be94fecf8/cordis.patch.yml
+- insert:
+    - id: approval-reason-relay
+      name: dsh-approval-reason-relay

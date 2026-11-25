@@ -112,6 +112,58 @@
           }
         }
       ]
+    },
+    {
+      "name": "dsh-approval-reason-relay",
+      "title": {
+        "en": "Approval Reason Relay",
+        "zh": "审批拒绝理由回传"
+      },
+      "description": {
+        "en": "When the user denies an approval, the approval side's reason (for example the auto-review rejection reason) is relayed back into the tool result so the agent knows why it was denied.",
+        "zh": "用户拒绝一次审批时，把审批方给出的理由（例如自动审查的拒绝理由）带回工具结果，智能体因此知道为什么被拒。"
+      },
+      "homepage": "https://github.com/ZJ929-max/dsh-approval-reason-relay#readme",
+      "repository": {
+        "url": "https://github.com/ZJ929-max/dsh-approval-reason-relay"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1795619211,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/ZJ929-max/dsh-approval-reason-relay",
+            "commit": "2f8665cbc1395fe8e7a31732bcde4e2be94fecf8"
+          }
+        }
+      ]
+    },
+    {
+      "name": "dsh-aegis",
+      "title": {
+        "en": "Aegis Plugin Permissions",
+        "zh": "DSH 插件权限模型补齐"
+      },
+      "description": {
+        "en": "Load gate + zero-permission Native Cell + runtime dynamic permission requests for DSH plugins. Third-party plugins request capabilities at runtime; the Broker executes real I/O only after the user allows it.",
+        "zh": "DSH 插件权限门：加载门 + 零权限 Native Cell + 运行时动态申请。第三方插件不直接获得 I/O；由 Broker 在用户批准后执行。"
+      },
+      "homepage": "https://github.com/ZJ929-max/dsh-aegis#readme",
+      "repository": {
+        "url": "https://github.com/ZJ929-max/dsh-aegis"
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1795619213,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/ZJ929-max/dsh-aegis",
+            "commit": "b0296214e438e704f31d2c3d9dce3d22c3a8b3af"
+          }
+        }
+      ]
     }
   ]
 }

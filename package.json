@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugins",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Meta bundle for the independent DSH plugins maintained by ZJ929-max: one install, latest main of each plugin; no runtime code.",
   "license": "MPL-2.0",
   "author": "ZJ929-max",
@@ -25,7 +25,9 @@
         "./patches/20-bili-peek.yml",
         "./patches/30-view-image.yml",
         "./patches/40-agent-bus.yml",
-        "./patches/50-tokeneconomizer.yml"
+        "./patches/50-tokeneconomizer.yml",
+        "./patches/55-approval-reason-relay.yml",
+        "./patches/60-aegis.yml"
       ]
     }
   },
@@ -33,7 +35,9 @@
     "dsh-bili-peek": "github:ZJ929-max/dsh-bili-peek",
     "dsh-view-image": "github:ZJ929-max/dsh-view-image",
     "dsh-tokeneconomizer": "github:ZJ929-max/tokeneconomizer-dsh",
-    "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus"
+    "dsh-agent-bus": "github:ZJ929-max/dsh-agent-bus",
+    "dsh-approval-reason-relay": "github:ZJ929-max/dsh-approval-reason-relay#2f8665cbc1395fe8e7a31732bcde4e2be94fecf8",
+    "dsh-aegis": "github:ZJ929-max/dsh-aegis#b0296214e438e704f31d2c3d9dce3d22c3a8b3af"
   },
   "engines": {
     "node": ">=22"

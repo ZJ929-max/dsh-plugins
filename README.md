@@ -2,7 +2,7 @@
 
 > **状态：0.1.0 草稿。** 这个仓库同时是「一次装齐」的元包和「按需单装」的市场索引（format 1）。插件源码不在这里：每个插件仍然是独立仓库、独立版本、独立许可证。
 >
-> 四个插件仓库与元包仓库已上线（ZJ929-max）。工具折叠已并入 `dsh-tokeneconomizer`，独立仓库 `dsh-lazy-tools` 暂停更新。**元包默认自动跟随各插件 main 的最新版**（不钉 commit）；索引侧仍按 40 位 commit 固定，供需要可复现版本的人单装。agent-bus 已重新纳入（原因见下）。
+> 六个插件仓库与元包仓库已上线（ZJ929-max）：bili-peek、view-image、agent-bus、tokeneconomizer、approval-reason-relay、aegis。工具折叠已并入 `dsh-tokeneconomizer`，独立仓库 `dsh-lazy-tools` 暂停更新。元包对前四个跟 main；approval-reason-relay 与 aegis 钉 40 位 commit。索引侧统一按 40 位 commit 固定，供需要可复现版本的人单装。
 
 ## 它是什么，不是什么
 
@@ -37,11 +37,13 @@ plugin_manager { action: "install_bundle", target: "C:\\absolute\\path\\to\\dsh-
 
 > **前置条件（2026-11-20 实测）**：pnpm 默认禁止「依赖里的 git 子依赖」，会报 `ERR_PNPM_EXOTIC_SUBDEP`。元包依赖四个 git 插件，所以 profile 根目录的 `pnpm-workspace.yaml` 要加一行：`blockExoticSubdeps: false`；或安装时用 `dsh plugin --profile <name> install --config.blockExoticSubdeps=false`。**单插件安装（索引路径）不需要这行**。
 
-装完应出现四个工具面：`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox` / `agent_bus_status`、`tokeneconomizer`（折叠已并入它：`{action:"fold"}` 看清单、`{action:"unfold", name:"…"}` 取回）。
+装完应出现这些能力：`bili_search` / `bili_video` / `bili_comments`、`view_image`、`agent_bus_post` / `agent_bus_inbox` / `agent_bus_status`、`tokeneconomizer`（折叠已并入它：`{action:"fold"}` 看清单、`{action:"unfold", name:"…"}` 取回）、`dsh-approval-reason-relay`（拒绝审批时把理由回传给模型）、`dsh-aegis`（插件权限门 Broker + CLI）。
+
+> `dsh-aegis` 目前只加载 Broker/CLI；它不会自动把其它插件塞进 Native Cell。逐个插件纳管需要单独配置 Cell 路由，属于后续阶段。
 
 ## 互斥规则（必读）
 
-元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`bili-peek` / `view-image` / `agent-bus` / `tokeneconomizer`。
+元包 insert 的 `id` 和单插件 insert 的 `id` **完全相同**：`bili-peek` / `view-image` / `agent-bus` / `tokeneconomizer` / `approval-reason-relay` / `aegis-bootstrap`。
 
 安装前自检：确认 profile 的 `dsh.profile.bundles` 里没有这四个 id 的单独来源，`package.json` 里也没有同名单插件依赖。规则是「同一 plugin id 只允许一个来源注入」。
 
