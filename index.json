@@ -156,11 +156,11 @@
       "versions": [
         {
           "version": "0.1.0",
-          "publishTimestamp": 1795621950,
+          "publishTimestamp": 1795623002,
           "source": {
             "type": "git",
             "url": "https://github.com/ZJ929-max/dsh-aegis",
-            "commit": "2d26b323c7b335bdce8eecd3373c7c568d3f998e"
+            "commit": "ca0ec78dafc8181c3ae9755e4157edf3dde6789c"
           }
         }
       ]
